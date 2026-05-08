@@ -1,0 +1,2221 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vida Pura Mercearia — Orgânicos & Naturais</title>
+  <link rel="icon" href="https://tse2.mm.bing.net/th/id/OIP.9DE1TGCVrJEd5LY8Ea3cPAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+    type="image/x-icon">
+  <link
+    href="images/Vida Pura - logo com fundo branco.jpeg"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+--vd:#1e3a2f;--vm:#2d5a3d;--vc:#4a7c59;--fo:#6b9e6e;
+--cr:#f5f0e8;--ar:#e8dfc8;--tc:#c4622d;--do:#c8a951;
+--tx:#1a1a18;--ts:#4a4a42;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cr);color:var(--tx);overflow-x:hidden}
+#root{min-height:100vh}
+p,h1,h2,h3,label,.hero-sub,.sobre-text,.prato-desc,.val-card p,.form-hint,.order-summary,.foot-quote{overflow-wrap:normal;word-break:normal;hyphens:none;text-wrap:normal}
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--ar)}
+::-webkit-scrollbar-thumb{background:var(--vc);border-radius:3px}
+/* Cursor */
+body{cursor:none}
+#cur-dot,#cur-ring{position:fixed;pointer-events:none;z-index:99999;border-radius:50%;transform:translate(-50%,-50%)}
+#cur-dot{width:8px;height:8px;background:var(--do);top:0;left:0;transition:transform .1s,background .3s}
+#cur-ring{width:36px;height:36px;border:1.5px solid rgba(200,169,81,.5);top:0;left:0;transition:width .3s,height .3s,border-color .3s}
+body.ch #cur-dot{transform:translate(-50%,-50%) scale(2.2);background:var(--tc)}
+body.ch #cur-ring{width:52px;height:52px;border-color:rgba(196,98,45,.4)}
+a,button,.cat-tab{cursor:none}
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;transition:all .4s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(30,58,47,.97);backdrop-filter:blur(12px);border-bottom-color:rgba(255,255,255,.06)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ar);letter-spacing:.12em;text-transform:uppercase}
+.nav-logo span{color:var(--do)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:rgba(245,240,232,.6);text-decoration:none;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--do)}
+/* Hero */
+.hero{min-height:100vh;background:var(--vd);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 30%,rgba(74,124,89,.2) 0,transparent 60%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(107,158,110,.12) 0,transparent 50%);pointer-events:none;z-index:1}
+.hero-body{position:relative;z-index:5;flex:1;display:flex;align-items:center;padding:100px 48px 80px;gap:60px}
+.hero-text{flex:1;animation:fadeUp .9s ease both;padding-left:64px}
+.eyebrow{font-family:'Manrope',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--fo);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--fo)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.45rem,7vw,6.35rem);font-weight:700;line-height:1.02;color:var(--cr);margin-bottom:18px}
+.hero-title em{font-style:italic;color:var(--do)}
+.hero-slogan{font-family:'Cormorant Garamond',serif;font-size:1.42rem;line-height:1.35;color:var(--do);font-style:italic;font-weight:600;margin-bottom:24px;max-width:520px}
+.hero-sub{font-family:'Manrope',sans-serif;font-size:1.08rem;line-height:1.78;color:rgba(245,240,232,.68);max-width:520px;margin-bottom:40px;font-weight:500}
+.btn-cta{display:inline-flex;align-items:center;gap:10px;background:var(--tc);color:#fff;padding:16px 36px;text-decoration:none;font-family:'Manrope',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;transition:all .3s;position:relative;overflow:hidden}
+.btn-cta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:rgba(255,255,255,.1);transition:left .4s}
+.btn-cta:hover::before{left:0}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,98,45,.4)}
+.hero-img-wrap{flex:1.15;position:relative;animation:fadeUp .9s .2s ease both;margin-left:-28px;max-width:820px;width:100%}
+.hero-img-frame{position:relative;overflow:hidden;border-radius:24px}
+.hero-img-frame::before{content:'';position:absolute;inset:-1px;border:1px solid rgba(200,169,81,.3);z-index:2;pointer-events:none}
+.hero-img-frame img{width:100%;height:clamp(480px,48vw,640px);object-fit:cover;object-position:left center;display:block;filter:brightness(.88) saturate(.9)}
+.hero-badge{position:absolute;bottom:-20px;left:-20px;background:var(--do);color:var(--vd);padding:18px 22px;font-family:'Playfair Display',serif;font-size:.78rem;font-style:italic;max-width:170px;line-height:1.5;z-index:3}
+/* Stats */
+.stats{background:var(--vm);display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.stat-item{background:var(--vd);padding:40px;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--do);line-height:1;margin-bottom:8px}
+.stat-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,232,.45)}
+/* Section helpers */
+.sec-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vc);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec-label::before{content:'';width:22px;height:1px;background:currentColor}
+.sec-label.light{color:var(--fo)}
+.sec-label.light::before{background:var(--fo)}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);line-height:1.15;color:var(--vd);margin-bottom:20px}
+.sec-title em{font-style:italic;color:var(--tc)}
+.sec-title.light{color:var(--cr)}
+.sec-title.light em{color:var(--do)}
+/* Sobre */
+.sobre{padding:110px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;background:var(--cr)}
+.sobre-imgs{position:relative}
+.sobre-img-main{width:100%;height:480px;object-fit:cover;display:block}
+.sobre-img-accent{position:absolute;bottom:-28px;right:-28px;width:52%;height:240px;object-fit:cover;border:5px solid var(--cr);box-shadow:0 16px 48px rgba(0,0,0,.12)}
+.sobre-text{font-size:.95rem;line-height:1.85;color:var(--ts);font-weight:300;margin-bottom:14px}
+.sobre-addr{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:.8rem;color:var(--vc)}
+/* Shop tabs */
+.shop-wrap{background:var(--ar);padding:0}
+.shop-tabs{display:flex;border-bottom:2px solid var(--areia,#e8dfc8)}
+.shop-tab{flex:1;padding:22px;background:none;border:none;font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--ts);cursor:none;transition:all .3s;position:relative;letter-spacing:.04em}
+.shop-tab.active{color:var(--vd);background:var(--cr)}
+.shop-tab.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--do)}
+.shop-tab:hover{background:rgba(245,240,232,.5)}
+/* Loja */
+.loja{background:var(--cr);padding:60px 48px}
+.toolbar{display:flex;gap:14px;margin-bottom:32px;flex-wrap:wrap;align-items:center}
+.search-wrap{flex:1;min-width:200px;position:relative}
+.search-wrap input{width:100%;padding:13px 18px 13px 42px;border:1.5px solid var(--ar);background:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--tx);outline:none;transition:border-color .3s}
+.search-wrap input:focus{border-color:var(--vc)}
+.search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ts);pointer-events:none}
+.cat-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.cat-tab{padding:9px 18px;border:1.5px solid var(--ar);background:#fff;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);cursor:none;transition:all .25s}
+.cat-tab.active,.cat-tab:hover{background:var(--vd);border-color:var(--vd);color:#fff}
+.result-count{font-size:.8rem;color:var(--ts);margin-bottom:20px}
+.result-count span{color:var(--vc);font-weight:500}
+.produtos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:40px}
+.prod-card{background:#fff;border:1.5px solid var(--ar);overflow:hidden;transition:all .25s;position:relative;display:flex;flex-direction:column;height:100%}
+.prod-card:hover{border-color:var(--vc);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.prod-img{width:100%;height:150px;object-fit:cover;object-position:left center;display:block}
+.prod-img-wrap{position:relative}
+.prod-badge{position:absolute;top:8px;left:8px;background:var(--vd);color:#fff;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px}
+.prod-body{padding:14px 14px 14px 20px;display:flex;flex-direction:column;flex:1}
+.prod-cat{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fo);margin-bottom:4px}
+.prod-nome{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--vd);line-height:1.3;margin-bottom:3px;min-height:2.6em}
+.prod-unit{font-size:.72rem;color:var(--ts);margin-bottom:10px}
+.prod-preco{font-size:1.1rem;font-weight:500;color:var(--tc);margin-bottom:12px}
+.prod-add{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-top:auto}
+.prod-add .qty-ctrl{width:100%;justify-content:space-between}
+.prod-add .add-btn{width:100%;flex:none}
+.qty-ctrl{display:flex;align-items:center;border:1.5px solid var(--ar)}
+.qty-btn{width:26px;height:26px;background:none;border:none;cursor:none;font-size:.95rem;color:var(--vd);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.qty-btn:hover{background:var(--ar)}
+.qty-val{width:26px;text-align:center;font-size:.82rem;font-weight:500}
+.qty-val.weight-val{width:auto;min-width:54px;padding:0 6px}
+.qty-gram-wrap{display:flex;align-items:center;justify-content:center;gap:2px;min-width:64px;padding:0 6px;font-size:.82rem;font-weight:500;color:var(--tx)}
+.qty-gram-input{width:44px;border:0;background:transparent;color:inherit;font:inherit;text-align:right;outline:none;padding:0}
+.qty-gram-unit{color:var(--vd);font-weight:600}
+.add-btn{flex:1;background:var(--vd);color:#fff;border:none;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:background .25s}
+.add-btn:hover{background:var(--vc)}
+.add-btn.added{background:var(--tc)}
+/* PaginaÃ§Ã£o */
+.paginacao{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.pag-btn{width:36px;height:36px;border:1.5px solid var(--ar);background:#fff;font-family:'DM Sans',sans-serif;font-size:.82rem;color:var(--ts);cursor:none;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.pag-btn:hover,.pag-btn.active{background:var(--vd);border-color:var(--vd);color:#fff}
+.pag-btn:disabled{opacity:.3;pointer-events:none}
+/* AlmoÃ§o aba */
+.almoco-wrap{background:var(--cr);padding:36px 48px 60px}
+.almoco-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:56px}
+.almoco-intro img{width:100%;height:400px;object-fit:cover}
+.pratos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.prato-card{background:#fff;border:1.5px solid var(--ar);overflow:hidden;transition:all .3s;cursor:none}
+.prato-card:hover{border-color:var(--vc);box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.prato-img{width:100%;height:200px;object-fit:cover}
+.prato-body{padding:20px}
+.prato-nome{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--vd);margin-bottom:6px}
+.prato-desc{font-size:.82rem;color:var(--ts);line-height:1.65;margin-bottom:14px;font-weight:300}
+.prato-preco{font-size:1.1rem;color:var(--tc);font-weight:500;margin-bottom:12px}
+.prato-add-row{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.prato-add-row .qty-ctrl{width:100%;justify-content:space-between}
+.prato-add-row .add-btn{width:100%;flex:none}
+/* Carrinho flutuante */
+.cart-fab{position:fixed;bottom:32px;right:32px;background:var(--vd);color:#fff;border:none;width:58px;height:58px;border-radius:50%;cursor:none;z-index:5000;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.25);transition:all .3s}
+.cart-fab:hover{background:var(--vc);transform:scale(1.06)}
+.cart-fab.hide{transform:scale(0);opacity:0;pointer-events:none}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--tc);color:#fff;font-size:.65rem;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* Overlay & Drawer */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:6000;opacity:0;pointer-events:none;transition:opacity .35s}
+.overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:0;width:440px;max-width:100vw;height:100vh;background:var(--cr);z-index:6001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 48px rgba(0,0,0,.15)}
+.drawer.open{transform:translateX(0)}
+.drawer-head{padding:24px 28px 20px;border-bottom:1px solid var(--ar);display:flex;justify-content:space-between;align-items:center}
+.drawer-head h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--vd)}
+.close-btn{background:none;border:none;cursor:none;color:var(--ts);font-size:1.2rem;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .2s}
+.close-btn:hover{color:var(--tc)}
+.cart-items{flex:1;overflow-y:auto;padding:18px 28px;display:flex;flex-direction:column;gap:10px}
+.cart-empty-msg{text-align:center;padding:60px 20px;color:var(--ts);font-size:.88rem}
+.cart-empty-msg div{font-size:2.8rem;margin-bottom:10px}
+.cart-item{display:flex;align-items:center;gap:10px;background:#fff;padding:12px 14px;border:1px solid var(--ar)}
+.cart-item img{width:52px;height:52px;object-fit:cover;flex-shrink:0}
+.ci-info{flex:1;min-width:0}
+.ci-nome{font-size:.85rem;font-weight:500;color:var(--vd);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-preco{font-size:.76rem;color:var(--ts)}
+.ci-ctrl{display:flex;align-items:center;border:1px solid var(--ar)}
+.ci-btn{width:24px;height:24px;background:none;border:none;cursor:none;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:background .2s}
+.ci-btn:hover{background:var(--ar)}
+.ci-btn.rm{color:var(--tc)}
+.ci-qty{width:24px;text-align:center;font-size:.78rem;font-weight:500}
+.ci-qty.weight-val{width:auto;min-width:52px}
+/* Checkout drawer */
+.checkout-form{padding:18px 28px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ts)}
+.form-group input,.form-group select,.form-group textarea{padding:11px 14px;border:1.5px solid var(--ar);background:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--tx);outline:none;transition:border-color .3s;resize:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--vc)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-hint{font-size:.72rem;color:var(--ts);line-height:1.45}
+.tipo-entrega-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.tipo-entrega-opt{border:1.5px solid var(--ar);background:#fff;padding:12px 8px;cursor:none;text-align:center;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ts)}
+.tipo-entrega-opt:hover,.tipo-entrega-opt.selected{border-color:var(--vd);background:var(--vd);color:#fff}
+.tipo-entrega-opt svg{width:20px;height:20px;flex-shrink:0}
+.pagamento-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pag-opt{border:1.5px solid var(--ar);background:#fff;padding:12px 8px;cursor:none;text-align:center;transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ts)}
+.pag-opt:hover,.pag-opt.selected{border-color:var(--vd);background:var(--vd);color:#fff}
+.pag-opt svg{width:22px;height:22px}
+.pix-info{background:var(--vd);color:#fff;padding:14px;font-size:.82rem;line-height:1.6;margin-top:4px}
+.pix-key-row{display:flex;align-items:center;gap:8px;margin-top:4px}
+.pix-key{flex:1;min-width:0;font-family:'Playfair Display',serif;font-size:1rem;color:var(--do);word-break:break-all}
+.btn-copy,.btn-frete,.btn-back{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);color:#fff;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .2s;white-space:nowrap}
+.btn-copy:hover{background:var(--do);border-color:var(--do);color:var(--vd)}
+.btn-frete{border-color:var(--vd);background:var(--vd);color:#fff;margin-top:4px}
+.btn-frete:hover{background:var(--vc);border-color:var(--vc)}
+.btn-back{border-color:var(--ar);background:transparent;color:var(--vd);padding:8px 12px}
+.btn-back:hover{border-color:var(--vd);background:var(--vd);color:#fff}
+.frete-info{background:#fff;border:1px solid var(--ar);padding:10px 12px;font-size:.78rem;color:var(--ts);display:flex;justify-content:space-between;gap:12px;align-items:center}
+.frete-info strong{color:var(--vd)}
+.order-summary{background:var(--ar);padding:14px;font-size:.82rem;color:var(--ts);line-height:1.55}
+.order-summary-title{display:block;color:var(--vd);margin-bottom:8px}
+.summary-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.summary-table th{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);font-weight:500;text-align:left;padding:0 0 6px;border-bottom:1px solid rgba(30,58,47,.14)}
+.summary-table td{padding:8px 0;border-bottom:1px solid rgba(30,58,47,.1);vertical-align:top}
+.summary-prod{width:56%;overflow-wrap:anywhere;color:var(--vd)}
+.summary-qty{width:14%;text-align:center;white-space:nowrap}
+.summary-val{width:30%;text-align:right;white-space:nowrap;color:var(--tc);font-weight:500}
+.summary-total-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(30,58,47,.18);font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--vd)}
+/* Cart foot */
+.cart-foot{padding:18px 28px 24px;border-top:1px solid var(--ar)}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.cart-total-label{font-size:.8rem;color:var(--ts)}
+.cart-total-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--vd)}
+.btn-checkout{width:100%;background:var(--vm);color:#fff;border:none;padding:16px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .3s}
+.btn-checkout:hover{background:var(--vd)}
+.btn-wa{width:100%;background:#25D366;color:#fff;border:none;padding:16px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:none;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s;margin-top:8px}
+.btn-wa:hover{background:#1ebe59}
+.btn-clear{width:100%;background:none;border:1px solid var(--ar);color:var(--ts);padding:11px;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .2s;margin-top:6px}
+.btn-clear:hover{border-color:var(--tc);color:var(--tc)}
+/* Email capture */
+.email-sec{background:var(--vd);padding:80px 48px;display:flex;justify-content:space-between;align-items:center;gap:48px}
+.email-text h2{font-family:'Playfair Display',serif;font-size:2rem;color:var(--cr);line-height:1.2;margin-bottom:10px}
+.email-text h2 em{font-style:italic;color:var(--do)}
+.email-text p{font-size:.9rem;color:rgba(245,240,232,.55);font-weight:300}
+.email-form{display:flex;gap:0;flex-shrink:0;min-width:360px}
+.email-form input{flex:1;padding:15px 18px;border:none;background:rgba(255,255,255,.1);color:#fff;font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;backdrop-filter:blur(4px)}
+.email-form input::placeholder{color:rgba(255,255,255,.35)}
+.email-form button{padding:15px 28px;background:var(--do);color:var(--vd);border:none;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .3s;white-space:nowrap}
+.email-form button:hover{background:var(--cr)}
+/* HorÃ¡rio */
+.horario{background:var(--vd);padding:100px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hor-list{margin-top:36px;list-style:none;display:flex;flex-direction:column}
+.hor-item{display:flex;justify-content:space-between;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:.88rem}
+.hor-day{color:rgba(245,240,232,.55);font-weight:300}
+.hor-time{color:var(--do);font-family:'Playfair Display',serif}
+.hor-map{overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.hor-map iframe{width:100%;height:360px;border:none;display:block;filter:saturate(.7) brightness(.8)}
+/* Contato */
+.contato{background:var(--cr);padding:90px 48px;text-align:center}
+.contato .sec-title{margin-bottom:40px}
+.contact-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.btn-wa-big,.btn-ig{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.08em;transition:all .3s}
+.btn-wa-big{background:var(--vm);color:#fff}
+.btn-wa-big:hover{background:var(--vd);transform:translateY(-2px)}
+.btn-ig{background:var(--tc);color:#fff}
+.btn-ig:hover{background:#a34d1f;transform:translateY(-2px)}
+/* Valores */
+.valores{padding:100px 48px;background:var(--ar)}
+.valores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+.val-card{background:var(--cr);padding:48px 40px;transition:all .3s}
+.val-card:hover{background:var(--vd)}
+.val-card:hover .val-num,.val-card:hover h3,.val-card:hover p{color:var(--cr)}
+.val-card:hover .val-num{opacity:.25}
+.val-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:var(--ar);line-height:1;margin-bottom:16px;transition:all .3s}
+.val-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--vd);margin-bottom:12px;transition:color .3s}
+.val-card p{font-size:.85rem;line-height:1.75;color:var(--ts);font-weight:300;transition:color .3s}
+/* Footer */
+.addr-bar{background:var(--ar);padding:24px 48px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:.82rem;color:var(--ts);border-top:1px solid rgba(0,0,0,.06)}
+footer{background:var(--vd);padding:44px 48px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.06)}
+.foot-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--cr)}
+.foot-logo span{color:var(--do)}
+.foot-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(245,240,232,.35)}
+.foot-copy{font-size:.72rem;color:rgba(245,240,232,.25)}
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s}
+.reveal.vis{opacity:1;transform:none}
+/* Toast */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--vd);color:var(--cr);padding:13px 26px;font-size:.82rem;letter-spacing:.06em;border-left:3px solid var(--do);box-shadow:0 10px 40px rgba(0,0,0,.28);z-index:9999;opacity:0;transition:all .45s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* Responsive */
+@media(max-width:900px){
+.nav{padding:16px 20px}
+.nav-links{display:none}
+.hero-text,.sobre,.almoco-intro,.valores,.horario,.checkout-form,.email-text{text-align:left}
+.hero-title,.hero-sub,.sec-title,.sobre-text,.prato-nome,.prato-desc,.val-card h3,.val-card p,.email-text h2,.email-text p,.foot-quote{text-align:left!important;text-indent:0;max-width:100%}
+.hero-sub,.sobre-text,.prato-desc,.val-card p,.val-card h3{display:block;hyphens:none!important;overflow-wrap:normal!important;word-break:normal!important;text-wrap:normal!important;white-space:normal!important}
+.sobre-text,.val-card p,.prato-desc{line-height:1.78}
+.valores .reveal{text-align:left!important}
+.sec-label{justify-content:flex-start!important;text-align:left!important}
+.sec-label::before{flex-shrink:0}
+.contato .sec-title{margin-left:0;margin-right:0}
+.contact-btns{justify-content:center}
+.btn-wa-big,.btn-ig{justify-content:center;min-width:min(100%,220px)}
+.hero-body{flex-direction:column;padding:80px 20px 60px;gap:32px}
+.hero-text{padding-left:0;width:100%}
+.hero-img-wrap{width:100%;margin-left:0;display:flex;justify-content:center}
+.hero-img-frame{width:100%;max-width:640px}
+.hero-img-frame img{height:340px}
+.hero-badge{display:none}
+.sobre,.horario{grid-template-columns:1fr;padding:70px 20px;gap:40px}
+.sobre-imgs{display:flex;justify-content:center}
+.sobre-img-main{width:100%;max-width:100%}
+.sobre-img-accent{display:none}
+.loja,.almoco-wrap{padding:50px 20px}
+.almoco-intro{grid-template-columns:1fr}
+.valores{padding:70px 20px}
+.valores-grid{grid-template-columns:1fr}
+.email-sec{flex-direction:column;padding:60px 20px;gap:28px}
+.email-form{min-width:0;width:100%}
+.checkout-form,.cart-items{padding-left:18px;padding-right:18px}
+.drawer-head,.cart-foot{padding-left:18px;padding-right:18px}
+.form-row{grid-template-columns:1fr}
+.tipo-entrega-opts{grid-template-columns:1fr}
+.pagamento-opts{grid-template-columns:repeat(2,1fr)}
+.pix-key-row{align-items:stretch;flex-direction:column}
+.btn-copy{width:100%}
+.frete-info{align-items:flex-start;flex-direction:column}
+.summary-prod{width:52%}
+.summary-qty{width:16%}
+.summary-val{width:32%}
+.stats{grid-template-columns:1fr}
+.produtos-grid{grid-template-columns: repeat(2, 1fr);}
+.prod-add{align-items:stretch}
+.prod-add .qty-ctrl{width:100%;justify-content:space-between}
+.prod-add .add-btn,.prato-add-row .add-btn{width:100%;min-width:0}
+.cart-fab{bottom:20px;right:20px}
+.drawer{width:100vw}
+.addr-bar,.foot-copy{display:none}
+footer{flex-direction:column;gap:14px;text-align:center;padding:32px 20px}
+}
+
+</style>
+</head>
+
+<body>
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+  <div id="root"></div>
+  <div id="toast" class="toast"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
+
+    /* ════════════════════════════════════════════════════════════════════
+       🌿 VIDA PURA MERCEARIA — CONFIGURAÇÕES
+       ════════════════════════════════════════════════════════════════════
+       ✅ Você pode mexer em tudo marcado com ✏️
+       🚫 Não mexa no que está marcado com ⚙️
+       ════════════════════════════════════════════════════════════════════ */
+
+
+    /* ─────────────────────────────────────────────
+       📞 CONTATO (✏️ EDITE AQUI)
+       ───────────────────────────────────────────── */
+
+    // ✏️ Número do WhatsApp que recebe os pedidos
+    //    Formato: 55 + DDD + número (sem espaços ou traços)
+    const WA = '554732029800';
+
+    // ✏️ Chave PIX (CPF, CNPJ, telefone ou e-mail)
+    const PIX_KEY = '4732029800';
+
+    // ✏️ Tabela de frete para clientes
+    const FRETES = [
+      { bairro: 'Adhemar Garcia', valor: 22 },
+      { bairro: 'América', valor: 17 },
+      { bairro: 'Anita Garibaldi', valor: 16 },
+      { bairro: 'Atiradores', valor: 16 },
+      { bairro: 'Aventureiro', valor: 23 },
+      { bairro: 'Barra Velha', valor: 30 },
+      { bairro: 'Boa Vista', valor: 18 },
+      { bairro: 'Boehmerwald', valor: 22 },
+      { bairro: 'Bom Retiro', valor: 22 },
+      { bairro: 'Bucarein', valor: 16 },
+      { bairro: 'Centro', valor: 16 },
+      { bairro: 'Comasa', valor: 18 },
+      { bairro: 'Costa e Silva', valor: 21 },
+      { bairro: 'Distrito Industrial', valor: 25 },
+      { bairro: 'Espinheiros', valor: 25 },
+      { bairro: 'Fátima', valor: 20 },
+      { bairro: 'Floresta', valor: 16 },
+      { bairro: 'Glória', valor: 17 },
+      { bairro: 'Guanabara', valor: 18 },
+      { bairro: 'Iririú', valor: 20 },
+      { bairro: 'Itaum', valor: 20 },
+      { bairro: 'Itinga', valor: 30 },
+      { bairro: 'Jaraguá do Sul', valor: 30 },
+      { bairro: 'Jardim Iririú', valor: 22 },
+      { bairro: 'Jardim Paraíso', valor: 29 },
+      { bairro: 'Jardim Sophia', valor: 24 },
+      { bairro: 'Jarivatuba', valor: 22 },
+      { bairro: 'João Costa', valor: 20 },
+      { bairro: 'Morro do Meio', valor: 22 },
+      { bairro: 'Nova Brasília', valor: 18 },
+      { bairro: 'Paranaguamirim', valor: 22 },
+      { bairro: 'Parque Guarani', valor: 22 },
+      { bairro: 'Petrópolis', valor: 20 },
+      { bairro: 'Pirabeiraba', valor: 30 },
+      { bairro: 'Profipo', valor: 20 },
+      { bairro: 'Saguaçu', valor: 18 },
+      { bairro: 'Santa Catarina', valor: 20 },
+      { bairro: 'Santo Antônio', valor: 20 },
+      { bairro: 'São Francisco do Sul', valor: 20 },
+      { bairro: 'São Marcos', valor: 18 },
+      { bairro: 'Ulysses Guimarães', valor: 22 },
+      { bairro: 'Vila Nova', valor: 20 },
+    ];
+
+    const CIDADES_ENTREGA = [
+      { cidade: 'Joinville', valor: null },
+      { cidade: 'Barra Velha', valor: 30 },
+      { cidade: 'Jaraguá do Sul', valor: 30 },
+      { cidade: 'São Francisco do Sul', valor: 20 },
+    ];
+
+
+    /* ─────────────────────────────────────────────
+       🏠 INFORMAÇÕES DA LOJA (✏️ EDITE AQUI)
+       ───────────────────────────────────────────── */
+
+    const INFO_LOJA = {
+      nome: 'Vida Pura Mercearia Orgânica',          // ✏️ Nome da loja
+      cidade: 'Joinville · Santa Catarina',   // ✏️ Cidade
+      slogan: '"Escolhas conscientes mudam o mundo"', // ✏️ Frase da foto principal
+      descricao: 'Produtos orgânicos certificados, cultivados com respeito à natureza e ao próximo. Um lugar onde a alimentação saudável encontra o sabor verdadeiro.',
+      sobre1: 'Prazer em conhecer! Somos a Vida Pura Mercearia, com foco em produtos orgânicos certificados — oferecendo alimentos livres de agrotóxicos e cultivados com respeito à natureza e ao próximo consumidor.',
+      sobre2: 'Cada item em nossa loja foi cuidadosamente selecionado por agricultores comprometidos com práticas sustentáveis e com o bem-estar de quem consome.',
+      endereco: 'R. Ministro Calógeras, 1514 — Atiradores, Joinville / SC', // ✏️ Endereço
+      telefone: '+55 (47) 3202-9800',              // ✏️ Telefone exibido no rodapé
+      instagram: 'https://www.instagram.com/merceariavidapura/?hl=en', // ✏️ Link do Instagram
+    };
+
+    // ✏️ Horário de funcionamento
+    const HORARIOS = [
+      { dia: 'Segunda — Sexta', horario: '08:30h – 18:30h', fechado: false },
+      { dia: 'Sábados', horario: '09:00h – 14:00h', fechado: false },
+      { dia: 'Feriados', horario: 'Consultar', fechado: false },
+      { dia: 'Domingos', horario: 'Fechado', fechado: true },
+      // Para adicionar dia: copie uma linha acima e cole aqui
+    ];
+
+    // ✏️ Números do contador animado
+    const CONTADORES = { certificados: 100, agricultores: 15, produtos: 1200 };
+
+
+    /* ─────────────────────────────────────────────
+       🍽️ PRATOS DO ALMOÇO (✏️ EDITE AQUI)
+       ─────────────────────────────────────────────
+       Como editar:
+       • nome:  Nome do prato
+       • preco: Preço com ponto: 32.90
+       • desc:  Descrição dos ingredientes
+       • img:   Link de uma foto na internet
+       • tags:  Etiquetas ['Vegano','Sem Glúten']
+    
+       Para ADICIONAR: copie um bloco {…}, e cole depois do último
+       Para REMOVER: apague o bloco {…}, inteiro
+       ───────────────────────────────────────────── */
+
+    const PRATOS = [
+      {
+        id: 'p1',
+        nome: 'Prato Vegano do Dia',
+        preco: 32.90,
+        desc: 'Arroz integral, feijão preto, legumes salteados no azeite, salada orgânica da estação e molho de tahine.',
+        img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80',
+        tags: ['Vegano', 'Sem Lactose'],
+      },
+      {
+        id: 'p2',
+        nome: 'Bowl Proteico Orgânico',
+        preco: 36.90,
+        desc: 'Quinoa, grão-de-bico, espinafre refogado, cenoura assada, pepino, húmus e castanhas.',
+        img: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80',
+        tags: ['Vegetariano', 'Rico em Proteína'],
+      },
+      {
+        id: 'p3',
+        nome: 'Executivo da Mercearia',
+        preco: 29.90,
+        desc: 'Arroz branco ou integral, feijão carioca, frango orgânico grelhado, farofa artesanal e salada.',
+        img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80',
+        tags: ['Completo', 'Popular'],
+      },
+      {
+        id: 'p4',
+        nome: 'Marmita Detox Verde',
+        preco: 34.90,
+        desc: 'Mix de folhas orgânicas, grãos germinados, abacate, pepino, beterraba e molho de limão siciliano.',
+        img: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80',
+        tags: ['Cru', 'Detox', 'Vegano'],
+      },
+      {
+        id: 'p5',
+        nome: 'Feijoada Orgânica Light',
+        preco: 38.90,
+        desc: 'Feijão preto orgânico, linguiça artesanal, couve refogada, laranja pera e farofa de mandioca.',
+        img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80',
+        tags: ['Especial', 'Sexta-feira'],
+      },
+      {
+        id: 'p6',
+        nome: 'Sopinha Nutritiva',
+        preco: 24.90,
+        desc: 'Caldo de legumes orgânicos com cenoura, inhame, abobrinha e couve, temperado com ervas frescas.',
+        img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80',
+        tags: ['Leve', 'Reconfortante'],
+      },
+      {
+        id: 'p7',
+        nome: 'Risoto de Cogumelos Bio',
+        preco: 39.90,
+        desc: 'Arroz arbóreo orgânico com mix de cogumelos frescos, alho-poró, azeite extra virgem e queijo colonial.',
+        img: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80',
+        tags: ['Vegetariano', 'Especial'],
+      },
+      {
+        id: 'p8',
+        nome: 'Wrap Integral de Legumes',
+        preco: 27.90,
+        desc: 'Tortilla de farinha integral com cenoura ralada, repolho roxo, abacate, tomate e molho de iogurte natural.',
+        img: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&q=80',
+        tags: ['Vegano', 'Leve'],
+      },
+      {
+        id: 'p9',
+        nome: 'Frango ao Molho de Ervas',
+        preco: 33.90,
+        desc: 'Peito de frango orgânico grelhado com molho de ervas frescas, purê de batata doce e salada de rúcula.',
+        img: 'https://images.unsplash.com/photo-1432139509613-5c4255815697?w=600&q=80',
+        tags: ['Sem Glúten', 'Proteico'],
+      },
+      {
+        id: 'p10',
+        nome: 'Salada Completa da Estação',
+        preco: 26.90,
+        desc: 'Base de folhas verdes orgânicas, quinoa, grão-de-bico, tomate cereja, pepino, cenoura e molho de limão com azeite.',
+        img: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80',
+        tags: ['Vegano', 'Sem Glúten', 'Leve'],
+      },
+      {
+        id: 'p11',
+        nome: 'Nhoque de Batata Doce',
+        preco: 35.90,
+        desc: 'Nhoque artesanal de batata doce orgânica ao molho de tomate fresco com manjericão e azeite de oliva.',
+        img: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80',
+        tags: ['Vegetariano', 'Conforto'],
+      },
+      {
+        id: 'p12',
+        nome: 'Peixe Grelhado com Quinoa',
+        preco: 42.90,
+        desc: 'Filé de tilápia orgânica grelhado com limão siciliano, quinoa temperada com ervas e legumes assados.',
+        img: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80',
+        tags: ['Sem Glúten', 'Proteico', 'Leve'],
+      },
+      {
+        id: 'p13',
+        nome: 'Marmita Fitness Orgânica',
+        preco: 31.90,
+        desc: 'Arroz integral, batata doce, brócolis no vapor, peito de frango temperado com cúrcuma e sementes de gergelim.',
+        img: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&q=80',
+        tags: ['Sem Glúten', 'Fitness', 'Proteico'],
+      },
+      // ✏️ Para adicionar prato: copie o bloco acima e cole aqui
+    ];
+
+
+    /* ─────────────────────────────────────────────
+       🛒 CATEGORIAS DA LOJA (⚙️ não mude os "id")
+       ───────────────────────────────────────────── */
+
+    const CATS = [
+      { id: 'todos', label: 'Todos' },
+      { id: 'hortifruti', label: 'Hortifruti' },
+      { id: 'graos', label: 'Grãos & Sementes' },
+      { id: 'laticinios', label: 'Laticínios' },
+      { id: 'bebidas', label: 'Bebidas' },
+      { id: 'oleos', label: 'Óleos & Temperos' },
+      { id: 'farinhas', label: 'Farinhas' },
+      { id: 'doces', label: 'Doces & Mel' },
+      { id: 'snacks', label: 'Snacks' },
+      { id: 'higiene', label: 'Higiene Natural' },
+      { id: 'suplementos', label: 'Suplementos' },
+      { id: 'carnes', label: 'Carnes & Proteínas' },
+    ];
+
+    // ✏️ Fotos dos produtos por categoria
+    //    Substitua os links pelas fotos reais dos seus produtos
+    const CAT_IMGS = {
+      hortifruti: [
+        'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=75',
+        'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&q=75',
+        'https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=400&q=75',
+        'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=75',
+        'https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?w=400&q=75',
+        'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&q=75',
+      ],
+      graos: [
+        'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&q=75',
+        'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=75',
+        'https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?w=400&q=75',
+        'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=75',
+      ],
+      laticinios: [
+        'https://images.unsplash.com/photo-1587486913049-53fc88980cfc?w=400&q=75',
+        'https://images.unsplash.com/photo-1559598467-f8b76c8155d0?w=400&q=75',
+        'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=75',
+        'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&q=75',
+      ],
+      bebidas: [
+        'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=75',
+        'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=75',
+        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75',
+        'https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=75',
+      ],
+      oleos: [
+        'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=75',
+        'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=75',
+        'https://images.unsplash.com/photo-1506368083636-6defb67639a7?w=400&q=75',
+      ],
+      farinhas: [
+        'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=75',
+        'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=75',
+        'https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=400&q=75',
+      ],
+      doces: [
+        'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=75',
+        'https://images.unsplash.com/photo-1567206563114-c179706bf011?w=400&q=75',
+        'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400&q=75',
+      ],
+      snacks: [
+        'https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=400&q=75',
+        'https://images.unsplash.com/photo-1604177091072-269ce4592e9c?w=400&q=75',
+        'https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=400&q=75',
+      ],
+      higiene: [
+        'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=75',
+        'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=75',
+        'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=75',
+      ],
+      suplementos: [
+        'https://images.unsplash.com/photo-1577460551100-907dae52d85d?w=400&q=75',
+        'https://images.unsplash.com/photo-1622484211800-b34fd8e7f2e4?w=400&q=75',
+        'https://images.unsplash.com/photo-1611073615830-9f77ba19f7b9?w=400&q=75',
+      ],
+      carnes: [
+        'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&q=75',
+        'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&q=75',
+        'https://images.unsplash.com/photo-1569685132034-4cdf4a3dd4ac?w=400&q=75',
+        'https://images.unsplash.com/photo-1598965675045-45c5e72c7d05?w=400&q=75',
+      ],
+    };
+
+
+    /* ─────────────────────────────────────────────
+       📦 LISTA DE PRODUTOS (✏️ EDITE AQUI)
+       ─────────────────────────────────────────────
+       Cada linha é um produto:
+         ['Nome',  'Unidade',  Preço],
+    
+       REGRAS:
+       • Nome e unidade ficam entre aspas simples: 'Alface'
+       • Preço usa ponto, não vírgula: 4.90
+       • Cada linha termina com vírgula
+       • Para ADICIONAR: copie qualquer linha, cole abaixo, mude os dados
+       • Para REMOVER: apague a linha inteira
+       • Para mudar PREÇO: altere só o número no final da linha
+       ───────────────────────────────────────────── */
+
+    const RAW_PRODS = {
+
+      // HORTIFRUTI (129 produtos)
+      hortifruti: [
+        ['Abacate orgânico', 'kg', 5.90, 'Orgânico'],
+        ['Abacaxi orgânico', 'un', 7.90],
+        ['Abóbora cabotiá orgânica', 'kg', 5.90, 'Orgânico'],
+        ['Abóbora japonesa orgânica', 'kg', 5.90, 'Orgânico'],
+        ['Abóbora moranga orgânica', 'kg', 4.90],
+        ['Abóbora paulista orgânica', 'kg', 5.90],
+        ['Abobrinha italiana orgânica', 'kg', 7.50], 
+        ['Acafrao da terra orgânico', 'maço', 3.90],
+        ['Acelga orgânica', 'maço', 4.90],
+        ['Alface americana orgânica', 'maço', 4.90],
+        ['Alface crespa orgânica', 'maço', 4.90],
+        ['Alface lisa orgânica', 'maço', 4.90],
+        ['Alface romana orgânica', 'maço', 4.90],
+        ['Alface roxa orgânica', 'maço', 4.90],
+        ['Alho orgânico', 'cabeça', 3.90],
+        ['Alho poró orgânico', 'maço', 4.90],
+        ['Almeirão orgânico', 'maço', 3.90],
+        ['Ameixa importada orgânica 500g', '500g', 19.90],
+        ['Ameixa rubimel orgânica 500g', '500g', 16.90],
+        ['Ameixa seca sem caroço 150g', '150g', 14.90],
+        ['Amora congelada orgânica 500g', '500g', 22.90],
+        ['Atemoia orgânica', 'un', 9.90],
+        ['Avocado orgânico', 'un', 5.90],
+        ['Azedinha orgânica', 'maço', 3.90],
+        ['Banana branca orgânica', 'kg', 7.50],
+        ['Banana cachacinha orgânica', 'kg', 7.50],
+        ['Banana da terra orgânica', 'kg', 7.50],
+        ['Banana figo orgânica', 'kg', 7.50],
+        ['Banana maca orgânica', 'kg', 7.50],
+        ['Banana nanica orgânica', 'kg', 5.90],
+        ['Banana ouro orgânica', 'kg', 8.90],
+        ['Banana passa orgânica 150g', '150g', 12.90],
+        ['Banana verde orgânica para biomassa', 'kg', 4.90],
+        ['Beldroega orgânica', 'maço', 3.90],
+        ['Berinjela orgânica', 'kg', 7.90],
+        ['Beterraba orgânica', '500g', 5.90],
+        ['Brócolis orgânico', 'un', 9.90],
+        ['Brócolis ramoso orgânico 350g', '350g', 8.90],
+        ['Cara branco orgânico', 'kg', 8.50],
+        ['Carambola orgânica 500g', '500g', 9.90],
+        ['Caqui Fuyu orgânico', '500g', 14.90],
+        ['Cebola branca orgânica', 'kg', 6.90],
+        ['Cebola roxa orgânica', '400g', 7.90],
+        ['Cebolinha orgânica', 'maço', 2.90],
+        ['Cenoura orgânica 500g', '500g', 6.90],
+        ['Cenoura colorida orgânica 500g', '500g', 9.90],
+        ['Chicória orgânica', 'maço', 3.90],
+        ['Chuchu orgânico', 'kg', 4.20],
+        ['Coentro orgânico em maço', 'maço', 2.90],
+        ['Cogumelo Paris 300g', '300g', 14.90],
+        ['Cogumelo Portobello 150g', '150g', 12.90],
+        ['Cogumelo shitake orgânico 200g', '200g', 18.90],
+        ['Cogumelo shimeji branco 200g', '200g', 14.90],
+        ['Cogumelo shimeji preto 200g', '200g', 14.90],
+        ['Couve flor orgânica', 'un', 10.90],
+        ['Couve folha orgânica', 'maço', 3.90],
+        ['Couve kale orgânica', 'maço', 5.90],
+        ['Couve manteiga orgânica', 'maço', 3.90],
+        ['Couve mineira orgânica 150g', '150g', 4.50],
+        ['Ervilha torta orgânica 200g', '200g', 9.90],
+        ['Escarola orgânica', 'maço', 4.90],
+        ['Espinafre orgânico 200g', '200g', 5.90],
+        ['Figo orgânico 200g', '200g', 18.90],
+        ['Framboesa congelada orgânica 300g', '300g', 24.90],
+        ['Gengibre orgânico', '200g', 7.90],
+        ['Goiaba vermelha orgânica 500g', '500g', 9.90],
+        ['Hortela orgânica maço', 'maço', 3.50],
+        ['Inhame orgânico', '500g', 8.50],
+        ['Jiló orgânico', 'kg', 6.90],
+        ['Kiwi nacional orgânico 350g', '350g', 16.90],
+        ['Laranja Bahia orgânica', 'kg', 6.90],
+        ['Laranja champanhe orgânica', 'kg', 7.90],
+        ['Laranja lima orgânica', 'kg', 5.90],
+        ['Laranja suco orgânica', 'kg', 5.90],
+        ['Laranjinha Kinkan orgânica 180g', '180g', 9.90],
+        ['Lichia orgânica 350g', '350g', 19.90],
+        ['Lima da Persia orgânica', 'kg', 7.90],
+        ['Limao caipira orgânico', 'kg', 6.90],
+        ['Limao siciliano orgânico', 'kg', 11.90],
+        ['Limao Tahiti orgânico', 'kg', 8.90],
+        ['Maca Fuji orgânica 500g', '500g', 13.90],
+        ['Maca verde importada orgânica', '500g', 14.90],
+        ['Mamão formosa orgânico', 'kg', 7.90],
+        ['Mamão papaya orgânico', 'kg', 7.90],
+        ['Manga orgânica', 'kg', 9.90],
+        ['Manga Tommy orgânica', 'kg', 10.90],
+        ['Mandioca orgânica', 'kg', 6.50],
+        ['Mandioquinha orgânica 500g', '500g', 9.90],
+        ['Maracuja orgânico', 'kg', 9.90],
+        ['Melancia orgânica', 'un', 18.90],
+        ['Melancia baby orgânica', 'un', 12.90],
+        ['Melao amarelo orgânico', 'un', 12.90],
+        ['Mexerica orgânica', 'kg', 6.90],
+        ['Milho verde orgânico', 'un', 3.90],
+        ['Mirtilo orgânico 100g', '100g', 18.90],
+        ['Mirtilo congelado orgânico 500g', '500g', 34.90],
+        ['Mix de frutas vermelhas orgânicas congeladas 500g', '500g', 28.90],
+        ['Morango orgânico 250g', '250g', 12.90],
+        ['Morango congelado orgânico 500g', '500g', 22.90],
+        ['Mostarda crespa orgânica', 'maço', 3.90],
+        ['Nabo branco orgânico', 'kg', 5.90],
+        ['Nectarina importada orgânica 500g', '500g', 18.90],
+        ['Ora pro nobis orgânica em folhas', 'maço', 4.50],
+        ['Pepino japones orgânico', '400g', 6.90],
+        ['Pepino salada orgânico', 'kg', 6.90],
+        ['Pimenta biquinho orgânica', 'bandeja', 7.90],
+        ['Pimentao amarelo orgânico', '400g', 12.90],
+        ['Pimentao verde orgânico', '500g', 10.90],
+        ['Pimentao vermelho orgânico', '400g', 12.90],
+        ['Pinhao orgânico', 'kg', 24.90],
+        ['Pitaya vermelha orgânica', 'un', 9.90],
+        ['Quiabo orgânico 300g', '300g', 7.90],
+        ['Rabanete orgânico', 'maço', 4.90],
+        ['Radicchio roxo orgânico', 'maço', 5.90],
+        ['Radite orgânica', 'maço', 3.90],
+        ['Repolho roxo orgânico 250g', '250g', 6.90],
+        ['Repolho verde orgânico 250g', '250g', 5.90],
+        ['Rucula orgânica 150g', '150g', 5.50],
+        ['Salsao orgânico', 'maço', 4.90],
+        ['Salsinha orgânica', 'maço', 2.90],
+        ['Tangerina bergamota orgânica', 'kg', 7.90],
+        ['Tangerina ponkan orgânica', 'kg', 6.90],
+        ['Tomate cereja orgânico 300g', '300g', 8.90],
+        ['Tomate grape orgânico 180g', '180g', 7.90],
+        ['Tomate orgânico', '500g', 7.90],
+        ['Uva Niagara orgânica 500g', '500g', 18.90],
+        ['Uva Vitoria orgânica sem semente 500g', '500g', 22.90],
+        ['Uva passa orgânica 100g', '100g', 12.90],
+        ['Vagem macarrao orgânica 250g', '250g', 9.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // GRAOS (62 produtos)
+      graos: [
+        ['Amido de milho orgânico 500g', '500g', 8.90],
+        ['Arroz agulhinha branco orgânico 1kg', '1kg', 10.90],
+        ['Arroz agulhinha integral orgânico 1kg', '1kg', 12.90],
+        ['Arroz com quinoa orgânico 500g', '500g', 14.90],
+        ['Arroz integral orgânico 1kg', '1kg', 12.90],
+        ['Arroz negro orgânico 500g', '500g', 16.90],
+        ['Arroz parboilizado orgânico 1kg', '1kg', 10.90],
+        ['Arroz vermelho orgânico 500g', '500g', 16.90],
+        ['Aveia em flocos finos orgânica 250g', '250g', 11.90],
+        ['Aveia em flocos grossos orgânica 250g', '250g', 11.90],
+        ['Aveia em laminas orgânica 250g', '250g', 11.90],
+        ['Biomassa de banana verde orgânica 250g', '250g', 12.90],
+        ['Canjica de milho orgânica 500g', '500g', 9.90],
+        ['Chia em graos orgânica 200g', '200g', 14.90],
+        ['Ervilha orgânica 500g', '500g', 8.50],
+        ['Farelo de aveia orgânico 500g', '500g', 10.90],
+        ['Farinha de amendoas 150g', '150g', 29.90],
+        ['Farinha de arroz orgânica 500g', '500g', 10.90],
+        ['Farinha de aveia orgânica 300g', '300g', 11.90],
+        ['Farinha de banana verde 100g', '100g', 8.90],
+        ['Farinha de coco orgânica 500g', '500g', 22.90],
+        ['Farinha de grao de bico 300g', '300g', 14.90],
+        ['Farinha de linhaca dourada orgânica 300g', '300g', 12.90],
+        ['Farinha de mandioca branca orgânica 500g', '500g', 8.90],
+        ['Farinha de mandioca torrada orgânica 500g', '500g', 9.90],
+        ['Farinha de milho orgânica 500g', '500g', 8.90],
+        ['Farinha de sorgo orgânica 500g', '500g', 13.90],
+        ['Farinha de trigo branca orgânica 500g', '500g', 12.90],
+        ['Farinha de trigo integral orgânica 1kg', '1kg', 12.90],
+        ['Farinha de trigo sarraceno orgânica 500g', '500g', 18.90],
+        ['Feijao azuki orgânico 500g', '500g', 13.90],
+        ['Feijao carioca orgânico 1kg', '1kg', 12.90],
+        ['Feijao carioca cozido a vapor orgânico 250g', '250g', 8.90],
+        ['Feijao fradinho orgânico 500g', '500g', 10.90],
+        ['Feijao moyashi orgânico 500g', '500g', 10.90],
+        ['Feijao preto orgânico 1kg', '1kg', 12.90],
+        ['Feijao vermelho orgânico 500g', '500g', 10.90],
+        ['Fecula de batata orgânica 500g', '500g', 11.90],
+        ['Fecula de mandioca orgânica 500g', '500g', 9.90],
+        ['Flocos de arroz orgânico 300g', '300g', 10.90],
+        ['Fuba de milho orgânico 500g', '500g', 8.90],
+        ['Gergelim branco orgânico 180g', '180g', 10.90],
+        ['Gergelim preto 170g', '170g', 12.90],
+        ['Grao de bico orgânico 500g', '500g', 10.90],
+        ['Grao de bico cozido a vapor orgânico 250g', '250g', 8.90],
+        ['Lentilha verde 400g', '400g', 9.90],
+        ['Lentilha vermelha 400g', '400g', 9.90],
+        ['Linhaca dourada orgânica 300g', '300g', 9.90],
+        ['Linhaca marrom orgânica 300g', '300g', 8.90],
+        ['Milho de pipoca orgânico 500g', '500g', 8.90],
+        ['Mix de sementes orgânico 200g', '200g', 16.90],
+        ['Polvilho azedo orgânico 500g', '500g', 9.90],
+        ['Polvilho doce orgânico 500g', '500g', 9.50],
+        ['Quinoa branca orgânica 250g', '250g', 24.90],
+        ['Quinoa em flocos orgânica 150g', '150g', 19.90],
+        ['Quinoa em graos orgânica 250g', '250g', 24.90],
+        ['Semente de abobora 150g', '150g', 13.90],
+        ['Semente de girassol 340g', '340g', 11.90],
+        ['Soja em graos orgânica 500g', '500g', 9.90],
+        ['Tahine integral orgânico 220g', '220g', 24.90],
+        ['Tahine tradicional orgânico 220g', '220g', 22.90],
+        ['Trigo em graos orgânico 500g', '500g', 10.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // LATICINIOS (21 produtos)
+      laticinios: [
+        ['Cream cheese orgânico 150g', '150g', 18.90],
+        ['Ghee 200g - Bendita Roca', '200g', 34.90],
+        ['Iogurte de morango orgânico 300g', '300g', 8.90],
+        ['Iogurte natural desnatado orgânico 300g', '300g', 8.50],
+        ['Iogurte natural integral orgânico 300g', '300g', 9.90],
+        ['Kefir de leite orgânico 400ml', '400ml', 16.90],
+        ['Kefir natural 1L', '1L', 22.90],
+        ['Leite integral orgânico 1L', '1L', 8.90],
+        ['Manteiga orgânica com sal 200g', '200g', 22.90],
+        ['Manteiga orgânica sem sal 200g', '200g', 22.90],
+        ['Manteiga de castanha de caju 170g - Vida Veg', '170g', 32.90],
+        ['Queijo colonial orgânico kg', 'kg', 49.90],
+        ['Queijo minas frescal orgânico 300g', '300g', 19.90],
+        ['Queijo mussarela orgânico kg', 'kg', 54.90],
+        ['Queijo parmesao orgânico 100g', '100g', 14.90],
+        ['Queijo serrinha orgânico kg', 'kg', 54.90],
+        ['Requejiao cremoso orgânico 220g', '220g', 16.90],
+        ['Ricota orgânica 300g', '300g', 14.90],
+        ['Tofu orgânico 250g', '250g', 12.90],
+        ['Tofu defumado orgânico 250g', '250g', 14.90],
+        ['Tofu com ervas orgânico 250g', '250g', 14.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // BEBIDAS (48 produtos)
+      bebidas: [
+        ['Acai com banana e guarana 240g - Pe de Brasil', '240g', 18.90],
+        ['Acai com morango 240g - Pe de Brasil', '240g', 18.90],
+        ['Acai original 240g - Pe de Brasil', '240g', 16.90],
+        ['Acai polpa orgânica 100g', '100g', 9.90],
+        ['Agua de coco orgânica 1L', '1L', 12.90],
+        ['Agua tonica orgânica 255ml', '255ml', 9.90],
+        ['Bebida de aveia orgânica 1L - Nude', '1L', 24.90],
+        ['Bebida vegetal de castanha original 200ml', '200ml', 8.90],
+        ['Cachaca orgânica envelhecida 700ml', '700ml', 89.90],
+        ['Cafe orgânico torrado e moido 250g', '250g', 26.90],
+        ['Cafe em graos orgânico 250g', '250g', 28.90],
+        ['Cafe soluvel liofilizado orgânico 90g', '90g', 32.90],
+        ['Caldo de cana orgânico 1L', '1L', 9.90],
+        ['Cerveja artesanal IPA 500ml', '500ml', 18.90],
+        ['Cha de camomila orgânico 10 saches', '10g', 12.90],
+        ['Cha de erva doce orgânico 10 saches', '10g', 12.90],
+        ['Cha de hortela orgânico 10 saches', '10g', 12.90],
+        ['Cha de capim cidreira orgânico 10 saches', '10g', 12.90],
+        ['Cha de hibiscus orgânico 10 saches', '10g', 12.90],
+        ['Cha mate orgânico 100g', '100g', 16.90],
+        ['Cha mate orgânico sabor limao 350ml', '350ml', 9.90],
+        ['Cha verde orgânico 10 saches', '10g', 14.90],
+        ['Energetico natural orgânico 269ml', '269ml', 14.90],
+        ['Gin London Dry 750ml', '750ml', 89.90],
+        ['Isotonico orgânico sabor laranja 500ml', '500ml', 12.90],
+        ['Kombucha de abacaxi e hortela orgânica 400ml', '400ml', 16.90],
+        ['Kombucha de frutas vermelhas orgânica 400ml', '400ml', 16.90],
+        ['Kombucha de limao e gengibre orgânica 400ml', '400ml', 16.90],
+        ['Kombucha de maca verde orgânica 400ml', '400ml', 16.90],
+        ['Kombucha de morango e hibisco orgânica 400ml', '400ml', 16.90],
+        ['Kombucha de uva orgânica 400ml', '400ml', 16.90],
+        ['Kombucha orgânica 355ml - Strappa', '355ml', 16.90],
+        ['Leite de amendoas 1L', '1L', 24.90],
+        ['Leite de aveia orgânico 1L', '1L', 19.90],
+        ['Leite de castanha de caju orgânico 1L', '1L', 26.90],
+        ['Leite de coco orgânico em po 200g', '200g', 18.90],
+        ['Limonada orgânica 1L', '1L', 14.90],
+        ['Refrigerante cola orgânico 255ml', '255ml', 9.90],
+        ['Refrigerante guarana orgânico 255ml', '255ml', 9.90],
+        ['Suco de laranja orgânico 1L', '1L', 14.90],
+        ['Suco de maca orgânico 1L', '1L', 14.90],
+        ['Suco de tangerina orgânico 330ml', '330ml', 9.90],
+        ['Suco de uva bordo orgânico 1L', '1L', 16.90],
+        ['Suco de uva tinto orgânico 1L', '1L', 16.90],
+        ['Vinho orgânico tinto Malbec 750ml', '750ml', 59.90],
+        ['Vinho orgânico branco Chardonnay 750ml', '750ml', 59.90],
+        ['Vinho orgânico rose 750ml', '750ml', 59.90],
+        ['Vodka orgânica 900ml', '900ml', 79.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // OLEOS (46 produtos)
+      oleos: [
+        ['Azeite de oliva extravirgem orgânico 250ml', '250ml', 39.90],
+        ['Azeite de avocado 250ml', '250ml', 39.90],
+        ['Azeitona em conserva biodinamica 230g', '230g', 14.90],
+        ['Chimichurri orgânico 30g', '30g', 9.90],
+        ['Colorau orgânico 100g', '100g', 8.90],
+        ['Cominho em po orgânico 60g', '60g', 7.90],
+        ['Curcuma em po orgânica 100g', '100g', 14.90],
+        ['Canela em po orgânica 15g', '15g', 6.90],
+        ['Curry orgânico 70g', '70g', 11.90],
+        ['Extrato de tomate orgânico 200g', '200g', 9.90],
+        ['Ketchup orgânico 270g', '270g', 14.90],
+        ['Ketchup rustico orgânico 200g', '200g', 16.90],
+        ['Louro orgânico 15g', '15g', 6.90],
+        ['Maionese orgânica 270g', '270g', 18.90],
+        ['Molho barbecue orgânico 340g', '340g', 22.90],
+        ['Molho de pimenta jalapeno orgânico 240g', '240g', 16.90],
+        ['Molho de tomate orgânico com manjericao 330g', '330g', 12.90],
+        ['Molho de tomate tradicional orgânico 330g', '330g', 11.90],
+        ['Molho para salada orgânico com limao 270g', '270g', 14.90],
+        ['Molho pesto orgânico 155g', '155g', 18.90],
+        ['Molho sweet chilli orgânico 250g', '250g', 18.90],
+        ['Noz moscada orgânica 15g', '15g', 8.90],
+        ['Oleo de coco extravirgem 200ml', '200ml', 24.90],
+        ['Oleo de coco extravirgem 500ml', '500ml', 44.90],
+        ['Oleo de gergelim natural 250ml', '250ml', 22.90],
+        ['Oleo de girassol orgânico 500ml', '500ml', 19.90],
+        ['Oleo essencial de eucalipto 10ml', '10ml', 24.90],
+        ['Oleo essencial de laranja doce 10ml', '10ml', 22.90],
+        ['Oleo essencial de lavanda 10ml', '10ml', 28.90],
+        ['Oleo essencial de melaleuca 10ml', '10ml', 26.90],
+        ['Oleo essencial de alecrim 10ml', '10ml', 24.90],
+        ['Oregano orgânico 10g', '10g', 5.90],
+        ['Paprica defumada 30g', '30g', 8.90],
+        ['Paprica doce 15g', '15g', 5.90],
+        ['Paprica picante 15g', '15g', 5.90],
+        ['Passata de tomate orgânica 600g', '600g', 16.90],
+        ['Pimenta do reino orgânica 10g', '10g', 7.90],
+        ['Sal marinho integral 1kg', '1kg', 12.90],
+        ['Sal rosa do Himalaia fino 500g', '500g', 14.90],
+        ['Shoyu orgânico 250ml', '250ml', 16.90],
+        ['Shoyu de coco 250ml', '250ml', 22.90],
+        ['Tempero completo orgânico 280g', '280g', 22.90],
+        ['Tempero alho e sal orgânico 250g', '250g', 18.90],
+        ['Vinagre balsamico orgânico 250ml', '250ml', 24.90],
+        ['Vinagre de maca orgânico 500ml', '500ml', 14.90],
+        ['Vinagre de vinho tinto orgânico 250ml', '250ml', 14.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // FARINHAS (11 produtos)
+      farinhas: [
+        ['Farelo de trigo orgânico 500g', '500g', 9.90],
+        ['Flocos de milho para cuscuz orgânico 250g', '250g', 10.90],
+        ['Granola orgânica com mel 250g', '250g', 19.90],
+        ['Granola orgânica com frutas vermelhas 250g', '250g', 22.90],
+        ['Granola salgada orgânica 200g', '200g', 18.90],
+        ['Mistura para bolo orgânica 300g', '300g', 16.90],
+        ['Mistura para pao sem gluten orgânico 500g', '500g', 18.90],
+        ['Muesli orgânico 400g', '400g', 21.90],
+        ['Levedura nutricional em flocos 180g', '180g', 22.90],
+        ['Farinha de sorgo orgânica 300g', '300g', 13.90],
+        ['Farinha de chia orgânica 300g', '300g', 16.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // DOCES (35 produtos)
+      doces: [
+        ['Acai em po orgânico 50g', '50g', 24.90],
+        ['Acucar cristal orgânico 1kg', '1kg', 14.90],
+        ['Acucar de coco 250g', '250g', 22.90],
+        ['Acucar demerara orgânico 1kg', '1kg', 14.90],
+        ['Acucar mascavo orgânico 500g', '500g', 12.90],
+        ['Ameixa seca sem caroco bandeja 100g', '100g', 12.90],
+        ['Banana chips doce com canela 70g', '70g', 8.90],
+        ['Barra de cereal orgânica 30g', '30g', 6.90],
+        ['Coco ralado orgânico 100g', '100g', 9.90],
+        ['Chocolate 70% cacau orgânico 80g', '80g', 16.90],
+        ['Chocolate ao leite orgânico 70g', '70g', 16.90],
+        ['Chocolate branco orgânico 70g', '70g', 16.90],
+        ['Cranberry desidratada 100g', '100g', 16.90],
+        ['Damasco seco bandeja 100g', '100g', 14.90],
+        ['Doce de leite orgânico 300g', '300g', 18.90],
+        ['Geleia de amora orgânica 250g', '250g', 19.90],
+        ['Geleia de frutas vermelhas orgânica sem acucar 200g', '200g', 18.90],
+        ['Geleia de goiaba orgânica 200g', '200g', 16.90],
+        ['Geleia de maracuja orgânica 200g', '200g', 16.90],
+        ['Geleia de morango orgânico 250g', '250g', 19.90],
+        ['Geleia de uva orgânica 400g', '400g', 24.90],
+        ['Goiabada cascao orgânica 500g', '500g', 22.90],
+        ['Mel de bracatinga orgânico 450g', '450g', 39.90],
+        ['Mel silvestre orgânico 450g', '450g', 34.90],
+        ['Mel orgânico bisnaga 300g', '300g', 28.90],
+        ['Mel orgânico kids 200g', '200g', 24.90],
+        ['Melado de cana orgânico 440g', '440g', 16.90],
+        ['Nibs de cacau orgânico 75g', '75g', 22.90],
+        ['Pasta de amendoim orgânica 200g', '200g', 24.90],
+        ['Pasta de castanha de caju orgânica 120g', '120g', 32.90],
+        ['Polen apicola desidratado 125g', '125g', 34.90],
+        ['Rapadura orgânica 500g', '500g', 11.90],
+        ['Uva passa orgânica 100g', '100g', 12.90],
+        ['Uva passa orgânica 200g', '200g', 18.90],
+        ['Xarope de agave orgânico 250ml', '250ml', 24.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // SNACKS (23 produtos)
+      snacks: [
+        ['Amendoa crua orgânica 100g', '100g', 32.90],
+        ['Amendoim com casca orgânico 500g', '500g', 12.90],
+        ['Amendoim torrado com sal 150g', '150g', 11.90],
+        ['Antepasto de berinjela orgânico 210g', '210g', 18.90],
+        ['Antepasto de abobrinha com tomate orgânico 210g', '210g', 18.90],
+        ['Biscoito de arroz orgânico com gergelim 100g', '100g', 12.90],
+        ['Biscoito de polvilho orgânico 40g', '40g', 7.90],
+        ['Brownie de chocolate zero acucar 40g', '40g', 14.90],
+        ['Castanha de caju orgânica 100g', '100g', 32.90],
+        ['Castanha do Para orgânica 100g', '100g', 24.90],
+        ['Chips de banana salgada 100g', '100g', 9.90],
+        ['Chips de batata doce orgânica 30g', '30g', 9.90],
+        ['Coco chips orgânico 20g', '20g', 7.90],
+        ['Cookie orgânico aveia e mel 40g', '40g', 8.90],
+        ['Granola orgânica tradicional 250g', '250g', 19.90],
+        ['Mix de nuts com chocolate orgânico 90g', '90g', 22.90],
+        ['Nozes descascadas orgânicas 100g', '100g', 28.90],
+        ['Palmito pupunha orgânico 500g', '500g', 22.90],
+        ['Pipoca de milho amarelo orgânico 500g', '500g', 8.90],
+        ['Pipoca orgânica para micro-ondas 70g', '70g', 9.90],
+        ['Torrada de arroz integral orgânico 100g', '100g', 12.90],
+        ['Bala de gengibre com mel e propolis 40g', '40g', 9.90],
+        ['Extrato de propolis verde orgânico 30ml', '30ml', 24.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // HIGIENE (28 produtos)
+      higiene: [
+        ['Creme dental sem fluor 90g - Boni Natural', '90g', 18.90],
+        ['Condicionador natural 250ml', '250ml', 32.90],
+        ['Desodorante natural sem perfume 55g', '55g', 24.90],
+        ['Desodorante natural lavanda 55g', '55g', 24.90],
+        ['Desodorante roll-on natural 70ml', '70ml', 28.90],
+        ['Enxaguante bucal sem fluor 250ml', '250ml', 22.90],
+        ['Escova de dentes de bambu adulto', 'un', 14.90],
+        ['Escova de dentes de bambu infantil', 'un', 12.90],
+        ['Esfoliante facial natural 100ml', '100ml', 32.90],
+        ['Fio dental de bambu 50m', '50m', 16.90],
+        ['Hidratante corporal probitico 250ml - Nuno', '250ml', 42.90],
+        ['Lava loucas capim limao 1L', '1L', 16.90],
+        ['Lava loucas lavanda 1L', '1L', 16.90],
+        ['Lava roupas liquido lavanda 1L', '1L', 22.90],
+        ['Lava roupas liquido capim limao 1L', '1L', 22.90],
+        ['Mascara facial de argila 100g', '100g', 22.90],
+        ['Multiuso concentrado lavanda 1L', '1L', 18.90],
+        ['Protetor solar natural FPS30 120ml', '120ml', 48.90],
+        ['Sabao de coco em barra 100g', '100g', 12.90],
+        ['Sabao de coco em po 400g', '400g', 18.90],
+        ['Sabonete vegetal lavanda e melaleuca 85g', '85g', 12.90],
+        ['Sabonete vegetal capim limao e alecrim 85g', '85g', 12.90],
+        ['Sabonete de argila verde 90g', '90g', 14.90],
+        ['Sabonete de argila rosa 90g', '90g', 14.90],
+        ['Sabonete de calendula 90g', '90g', 12.90],
+        ['Shampoo natural 250ml', '250ml', 32.90],
+        ['Shampoo solido 50g - Planth', '50g', 29.90],
+        ['Condicionador solido 40g - Planth', '40g', 29.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // SUPLEMENTOS (19 produtos)
+      suplementos: [
+        ['100% Whey Protein sabor chocolate 900g - Shark Pro', '900g', 119.90],
+        ['100% Whey Protein sabor morango 900g - Shark Pro', '900g', 119.90],
+        ['100% Whey Protein cookies 900g - Shark Pro', '900g', 119.90],
+        ['100% Whey Protein doce de leite 900g - Shark Pro', '900g', 119.90],
+        ['100% Whey concentrado chocolate 900g - Integralmedica', '900g', 109.90],
+        ['Coenzima Q10 60 capsulas 400mg', '60 cáps', 79.90],
+        ['Colageno 60 capsulas', '60 cáps', 64.90],
+        ['Creatina monohidratada 300g - Shark Pro', '300g', 59.90],
+        ['Melatonina 30ml - Therapi', '30ml', 44.90],
+        ['Omega 3 1400mg 120 capsulas', '120 cáps', 64.90],
+        ['Proteina vegana cacau 500g', '500g', 79.90],
+        ['Proteina de amendoim 400g', '400g', 59.90],
+        ['Silicio orgânico 60 capsulas 500mg', '60 cáps', 64.90],
+        ['Simfort probioticos em po 30 saches - Vitafor', '30 sachês', 89.90],
+        ['Spirulina orgânica em po 100g', '100g', 49.90],
+        ['Suplemento vitamina C aloe vera 1L', '1L', 64.90],
+        ['Vitamina B12 60 capsulas - Macrophytus', '60 cáps', 49.90],
+        ['Vitamina D3 2000UI 60 capsulas', '60 cáps', 44.90],
+        ['Zinco quelato 60 capsulas', '60 cáps', 44.90],
+        // Adicione mais produtos aqui
+      ],
+
+      // CARNES (22 produtos)
+      carnes: [
+        ['Acem em cubos orgânico - Taurinos', '400g', 34.90],
+        ['Alcatra orgânica - Taurinos', '400g', 42.90],
+        ['Bacon artesanal defumado 150g - Defuart', '150g', 22.90],
+        ['Bife bovino orgânico - Taurinos', '400g', 39.90],
+        ['Carne moida bovina orgânica congelada 400g - Korin', '400g', 32.90],
+        ['Carne moida de frango orgânica 400g - Korin', '400g', 28.90],
+        ['Coracao de frango orgânico 600g - Korin', '600g', 24.90],
+        ['Costela bovina orgânica - Taurinos', 'kg', 44.90],
+        ['Coxinha da asa de frango orgânica 600g - Korin', '600g', 24.90],
+        ['Coxa e sobrecoxa de frango orgânica 600g - Korin', '600g', 26.90],
+        ['File de peito de frango orgânico 600g - Seara', '600g', 29.90],
+        ['File de tilapia sustentavel 450g - Korin', '450g', 36.90],
+        ['File de salmao selvagem 500g', '500g', 59.90],
+        ['Frango inteiro orgânico com miudos - Korin', 'un', 34.90],
+        ['Hamburguer bovino orgânico 340g - Korin', '340g', 34.90],
+        ['Hamburguer de frango orgânico 600g', '600g', 32.90],
+        ['Linguica suina colonial artesanal', 'kg', 34.90],
+        ['Moela orgânica 600g - Korin', '600g', 22.90],
+        ['Ovos orgânicos bandeja c/ 10 - Fazenda da Toca', '10 un', 18.90],
+        ['Ovos orgânicos bandeja c/ 20 - Korin', '20 un', 34.90],
+        ['Sassami de frango orgânico 600g - Korin', '600g', 26.90],
+        ['Sobrecoxa de frango orgânica 600g - Korin', '600g', 24.90],
+        // Adicione mais produtos aqui
+      ],
+
+    }; // Nao apague esta linha
+
+    /* ════════════════════════════════════════════════════════════════════
+       🚫 A PARTIR DAQUI NÃO MEXA — código técnico do site
+       ════════════════════════════════════════════════════════════════════ */
+
+    // ⚙️ Gera a lista completa de 1000 produtos automaticamente
+    function buildProducts() {
+      const list = [];
+      let id = 1;
+      const sufixos = ['Orgânico', 'Orgânica', 'Bio', 'Premium', 'Artesanal', 'Natural', 'Extra', 'Select', 'Integral', 'Puro'];
+      Object.entries(RAW_PRODS).forEach(([cat, arr]) => {
+        arr.forEach(([nome, unidade, preco, badge], idx) => {
+          const imgs = CAT_IMGS[cat];
+          list.push({ id: id++, cat, nome: nome + ' ' + sufixos[idx % sufixos.length], unidade, preco, img: imgs[idx % imgs.length], badge });
+        });
+      });
+      const cats = Object.keys(RAW_PRODS);
+      const suf2 = ['Premium', 'Especial', 'Gold', 'Pure', 'Rich', 'Select', 'Elite', 'Classic', 'Vital', 'Verde'];
+      while (list.length < 1000) {
+        const cat = cats[list.length % cats.length];
+        const base = RAW_PRODS[cat][list.length % RAW_PRODS[cat].length];
+        const imgs = CAT_IMGS[cat];
+        list.push({ id: id++, cat, nome: base[0] + ' ' + suf2[list.length % suf2.length], unidade: base[1], preco: base[2], img: imgs[list.length % imgs.length] });
+      }
+      return list;
+    }
+    const ALL_PRODUCTS = buildProducts();
+
+    /* ─── UTILS ─── */
+    const fmtBRL = v => 'R$ ' + v.toFixed(2).replace('.', ',');
+    const onlyDigits = v => (v || '').replace(/\D/g, '');
+    const normalizeText = v => (v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const formatCEP = v => {
+      const d = onlyDigits(v).slice(0, 8);
+      return d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d;
+    };
+    const formatPhone = v => {
+      const d = onlyDigits(v).slice(0, 11);
+      if (d.length <= 2) return d;
+      if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+      if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+      return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+    };
+    const isJoinville = cidade => normalizeText(cidade) === 'joinville';
+    const findCidadeEntrega = cidade => CIDADES_ENTREGA.find(c => normalizeText(c.cidade) === normalizeText(cidade));
+    const isAlmocoItem = item => String(item.id).startsWith('p');
+    const isWeightedHortifruti = item => item?.cat === 'hortifruti' && item?.unidade === 'kg';
+    const getQtyStep = item => isWeightedHortifruti(item) ? 0.1 : 1;
+    const getMinQty = item => isWeightedHortifruti(item) ? 0.1 : 1;
+    const normalizeQty = (item, qty) => {
+      const raw = Number(qty) || 0;
+      if (isWeightedHortifruti(item)) return Math.max(0.001, Math.round(raw * 1000) / 1000);
+      return Math.max(1, Math.round(raw));
+    };
+    const gramsToQty = (item, grams) => normalizeQty(item, Number(grams) / 1000);
+    const qtyToGrams = (item, qty) => Math.round(normalizeQty(item, qty) * 1000);
+    const formatQty = (item, qty) => {
+      if (!isWeightedHortifruti(item)) return String(Math.round(qty));
+      const safe = normalizeQty(item, qty);
+      if (safe < 1) return `${Math.round(safe * 1000)}g`;
+      const kg = Number.isInteger(safe) ? String(safe) : String(safe).replace('.', ',');
+      return `${kg}kg`;
+    };
+    const formatUnitPrice = item => fmtBRL(item.preco) + (isWeightedHortifruti(item) ? '/kg' : '');
+    const findFrete = (bairro, cidade) => {
+      const bairroNorm = normalizeText(bairro);
+      const cidadeNorm = normalizeText(cidade);
+      const cidadeDireta = findCidadeEntrega(cidade);
+      if (cidadeDireta && cidadeDireta.valor !== null) {
+        return { bairro: cidadeDireta.cidade, valor: cidadeDireta.valor };
+      }
+      const cidadeMatch = FRETES.find(f => normalizeText(f.bairro) === cidadeNorm);
+      if (cidadeNorm && !isJoinville(cidadeNorm) && cidadeMatch) return cidadeMatch;
+      const terms = [bairroNorm, cidadeNorm].filter(Boolean);
+      for (const term of terms) {
+        const exact = FRETES.find(f => normalizeText(f.bairro) === term);
+        if (exact) return exact;
+      }
+      for (const term of terms) {
+        const partial = FRETES.find(f => {
+          const b = normalizeText(f.bairro);
+          return b.length > 4 && (b.includes(term) || term.includes(b));
+        });
+        if (partial) return partial;
+      }
+      return null;
+    };
+    const copyText = async text => {
+      try {
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          throw new Error('clipboard indisponivel');
+        }
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+    };
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    /* ─── HOOKS ─── */
+    function useCounter(target, started) {
+      const [val, setVal] = useState(0);
+      useEffect(() => {
+        if (!started) return;
+        let cur = 0;
+        const step = Math.ceil(target / 60);
+        const t = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          setVal(cur);
+          if (cur >= target) clearInterval(t);
+        }, 25);
+        return () => clearInterval(t);
+      }, [started, target]);
+      return val;
+    }
+
+    /* ─── COMPONENTS ─── */
+    function Cursor() {
+      const dotRef = useRef(null);
+      const ringRef = useRef(null);
+      const rx = useRef(0), ry = useRef(0);
+      useEffect(() => {
+        let mx = 0, my = 0;
+        const onMove = e => { mx = e.clientX; my = e.clientY; };
+        document.addEventListener('mousemove', onMove);
+        const hoverEls = () => document.querySelectorAll('a,button,.cat-tab,.pag-btn,.prod-card,.prato-card,.val-card');
+        const addH = () => document.body.classList.add('ch');
+        const rmH = () => document.body.classList.remove('ch');
+        const bindHover = () => {
+          hoverEls().forEach(el => { el.addEventListener('mouseenter', addH); el.addEventListener('mouseleave', rmH); });
+        };
+        bindHover();
+        const interval = setInterval(bindHover, 2000);
+        let raf;
+        const loop = () => {
+          if (dotRef.current) { dotRef.current.style.left = mx + 'px'; dotRef.current.style.top = my + 'px'; }
+          rx.current += (mx - rx.current) * 0.13;
+          ry.current += (my - ry.current) * 0.13;
+          if (ringRef.current) { ringRef.current.style.left = rx.current + 'px'; ringRef.current.style.top = ry.current + 'px'; }
+          raf = requestAnimationFrame(loop);
+        };
+        loop();
+        return () => { document.removeEventListener('mousemove', onMove); cancelAnimationFrame(raf); clearInterval(interval); };
+      }, []);
+      return null;
+    }
+
+    function HeroParticles() {
+      const canvasRef = useRef(null);
+      useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+        resize();
+        window.addEventListener('resize', resize);
+        const N = 20;
+        const leaves = Array.from({ length: N }, () => ({
+          x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+          r: 2 + Math.random() * 3, sx: -.3 + Math.random() * .6,
+          sy: .2 + Math.random() * .45, op: .06 + Math.random() * .14,
+          w: Math.random() * Math.PI * 2, ws: .008 + Math.random() * .01,
+        }));
+        let raf;
+        const draw = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          leaves.forEach(l => {
+            l.x += l.sx + Math.sin(l.w) * .25; l.y += l.sy; l.w += l.ws;
+            if (l.y > canvas.height + 10) { l.y = -10; l.x = Math.random() * canvas.width; }
+            if (l.x < -10) l.x = canvas.width + 10; if (l.x > canvas.width + 10) l.x = -10;
+            ctx.save(); ctx.translate(l.x, l.y); ctx.rotate(l.w);
+            ctx.beginPath(); ctx.ellipse(0, 0, l.r * 2.2, l.r, 0, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(107,158,110,${l.op})`; ctx.fill(); ctx.restore();
+          });
+          raf = requestAnimationFrame(draw);
+        };
+        draw();
+        return () => { window.removeEventListener('resize', resize); cancelAnimationFrame(raf); };
+      }, []);
+      return <canvas ref={canvasRef} className="hero-canvas" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />;
+    }
+
+    function StatBar() {
+      const ref = useRef(null);
+      const [started, setStarted] = useState(false);
+      useEffect(() => {
+        const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setStarted(true); obs.disconnect(); } }, { threshold: .5 });
+        if (ref.current) obs.observe(ref.current);
+        return () => obs.disconnect();
+      }, []);
+      const v1 = useCounter(CONTADORES.certificados, started);
+      const v2 = useCounter(CONTADORES.agricultores, started);
+      const v3 = useCounter(CONTADORES.produtos, started);
+      return (
+        <div className="stats" ref={ref}>
+          <div className="stat-item"><div className="stat-num">{v1}%</div><div className="stat-label">Orgânicos Certificados</div></div>
+          <div className="stat-item"><div className="stat-num">{v2}+</div><div className="stat-label">Agricultores Parceiros</div></div>
+          <div className="stat-item"><div className="stat-num">{v3}+</div><div className="stat-label">Produtos na Loja</div></div>
+        </div>
+      );
+    }
+
+    function ProductCard({ p, cartQty, onAdd }) {
+      const weighted = isWeightedHortifruti(p);
+      const step = getQtyStep(p);
+      const minQty = getMinQty(p);
+      const [qty, setQty] = useState(() => minQty);
+      const [gramsInput, setGramsInput] = useState(() => String(qtyToGrams(p, minQty)));
+      const selectedQty = weighted && gramsInput ? gramsToQty(p, gramsInput) : qty;
+      const changeQty = delta => setQty(q => {
+        const next = weighted && delta < 0 && q <= minQty ? minQty : normalizeQty(p, q + delta);
+        if (weighted) setGramsInput(String(qtyToGrams(p, next)));
+        return next;
+      });
+      const changeGrams = value => {
+        const grams = value.replace(/\D/g, '');
+        setGramsInput(grams);
+        if (grams) setQty(gramsToQty(p, grams));
+      };
+      const fixGramsInput = () => {
+        const safe = gramsInput ? gramsToQty(p, gramsInput) : minQty;
+        setQty(safe);
+        setGramsInput(String(qtyToGrams(p, safe)));
+      };
+      const toastMsg = weighted
+        ? `✓ ${formatQty(p, selectedQty)} de ${p.nome} adicionado!`
+        : '✓ ' + p.nome + ' adicionado!';
+      return (
+        <div className="prod-card">
+          <div className="prod-img-wrap">
+            <img className="prod-img" src={p.img} alt={p.nome} loading="lazy" />
+            {p.badge && <span className="prod-badge">{p.badge}</span>}
+          </div>
+          <div className="prod-body">
+            <div className="prod-cat">{CATS.find(c => c.id === p.cat)?.label}</div>
+            <div className="prod-nome">{p.nome}</div>
+            <div className="prod-unit">{p.unidade}</div>
+            <div className="prod-preco">{formatUnitPrice(p)}</div>
+            <div className="prod-add">
+              <div className="qty-ctrl">
+                <button className="qty-btn" onClick={() => changeQty(-step)}>−</button>
+                {weighted
+                  ? (
+                    <label className="qty-gram-wrap">
+                      <input
+                        className="qty-gram-input"
+                        value={gramsInput}
+                        onChange={e => changeGrams(e.target.value)}
+                        onBlur={fixGramsInput}
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        aria-label={`Gramas de ${p.nome}`}
+                      />
+                      <span className="qty-gram-unit">g</span>
+                    </label>
+                  )
+                  : <span className="qty-val">{formatQty(p, qty)}</span>}
+                <button className="qty-btn" onClick={() => changeQty(step)}>+</button>
+              </div>
+              <button className={`add-btn${cartQty > 0 ? ' added' : ''}`} onClick={() => { onAdd(p, selectedQty); showToast(toastMsg); }}>
+                {cartQty > 0 ? `✓ (${formatQty(p, cartQty)})` : 'Adicionar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function PratoCard({ p, cartQty, onAdd }) {
+      const [qty, setQty] = useState(1);
+      return (
+        <div className="prato-card">
+          <img className="prato-img" src={p.img} alt={p.nome} loading="lazy" />
+          <div className="prato-body">
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
+              {p.tags.map(t => <span key={t} style={{ background: 'rgba(74,124,89,.12)', color: 'var(--vc)', fontSize: '.65rem', padding: '3px 8px', letterSpacing: '.08em', textTransform: 'uppercase' }}>{t}</span>)}
+            </div>
+            <div className="prato-nome">{p.nome}</div>
+            <div className="prato-desc">{p.desc}</div>
+            <div className="prato-preco">{fmtBRL(p.preco)}</div>
+            <div className="prato-add-row">
+              <div className="qty-ctrl">
+                <button className="qty-btn" onClick={() => setQty(q => Math.max(1, q - 1))}>−</button>
+                <span className="qty-val">{qty}</span>
+                <button className="qty-btn" onClick={() => setQty(q => q + 1)}>+</button>
+              </div>
+              <button className={`add-btn${cartQty > 0 ? ' added' : ''}`} style={{ padding: '8px 12px' }} onClick={() => { onAdd(p, qty); showToast('✓ ' + p.nome + ' adicionado!'); }}>
+                {cartQty > 0 ? `✓ (${cartQty})` : 'Pedir Agora'}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function ShopSection({ cart, onAdd, onUpdateCart }) {
+      const [tab, setTab] = useState('loja'); // 'loja' | 'almoco'
+      const [cat, setCat] = useState('todos');
+      const [busca, setBusca] = useState('');
+      const [page, setPage] = useState(1);
+      const PER = 24;
+
+      const filtered = ALL_PRODUCTS.filter(p =>
+        (cat === 'todos' || p.cat === cat) && p.nome.toLowerCase().includes(busca.toLowerCase())
+      );
+      const totalPags = Math.ceil(filtered.length / PER);
+      const pageProd = filtered.slice((page - 1) * PER, page * PER);
+      const pratoSemana = PRATOS[2] || PRATOS[0];
+      const pratosLista = PRATOS.filter(p => p.id !== pratoSemana?.id);
+
+      const scrollGrid = () => document.getElementById('prod-grid-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      return (
+        <section id="loja" className="shop-wrap">
+          <div style={{ background: 'var(--vd)', padding: '60px 48px 0' }}>
+            <div className="reveal" style={{ marginBottom: 0, paddingBottom: 0 }}>
+              <div className="sec-label light" style={{ justifyContent: 'center', marginBottom: 12 }}>Faça seu pedido</div>
+              <h2 className="sec-title light" style={{ textAlign: 'center', marginBottom: 0 }}>
+                Nossa <em>Loja</em>
+              </h2>
+            </div>
+            <div className="shop-tabs" style={{ marginTop: 40, background: 'none' }}>
+              <button className={`shop-tab${tab === 'loja' ? ' active' : ''}`} style={tab === 'loja' ? {} : { color: 'rgba(245,240,232,.5)', background: 'transparent' }} onClick={() => setTab('loja')}>
+                🛒 Produtos da Loja
+              </button>
+              <button className={`shop-tab${tab === 'almoco' ? ' active' : ''}`} style={tab === 'almoco' ? {} : { color: 'rgba(245,240,232,.5)', background: 'transparent' }} onClick={() => setTab('almoco')}>
+                🍽️ Almoço Orgânico
+              </button>
+            </div>
+          </div>
+
+          {tab === 'loja' && (
+            <div className="loja">
+              <div id="prod-grid-top" />
+              <div className="toolbar">
+                <div className="search-wrap">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
+                  <input type="text" placeholder="Buscar produto..." value={busca} onChange={e => { setBusca(e.target.value); setPage(1); }} />
+                </div>
+                <div className="cat-tabs">
+                  {CATS.map(c => (
+                    <button key={c.id} className={`cat-tab${cat === c.id ? ' active' : ''}`} onClick={() => { setCat(c.id); setPage(1); }}>
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="result-count">Exibindo <span>{pageProd.length}</span> de <span>{filtered.length}</span> produtos</div>
+              <div className="produtos-grid">
+                {pageProd.map(p => (
+                  <ProductCard key={p.id} p={p} cartQty={cart[p.id]?.qty || 0} onAdd={onAdd} />
+                ))}
+              </div>
+              {totalPags > 1 && (
+                <div className="paginacao">
+                  <button className="pag-btn" disabled={page === 1} onClick={() => { setPage(p => p - 1); scrollGrid(); }}>‹</button>
+                  {(() => {
+                    const pages = [];
+                    if (totalPags <= 7) {
+                      for (let i = 1; i <= totalPags; i++) pages.push(i);
+                    } else {
+                      pages.push(1);
+                      const start = Math.max(2, page - 2);
+                      const end = Math.min(totalPags - 1, page + 2);
+                      if (start > 2) pages.push('...');
+                      for (let i = start; i <= end; i++) pages.push(i);
+                      if (end < totalPags - 1) pages.push('...');
+                      pages.push(totalPags);
+                    }
+                    return pages.map((pg, idx) =>
+                      pg === '...'
+                        ? <span key={'el' + idx} style={{ width: 36, textAlign: 'center', color: 'var(--ts)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>…</span>
+                        : <button key={pg} className={`pag-btn${page === pg ? ' active' : ''}`} onClick={() => { setPage(pg); scrollGrid(); }}>{pg}</button>
+                    );
+                  })()}
+                  <button className="pag-btn" disabled={page === totalPags} onClick={() => { setPage(p => p + 1); scrollGrid(); }}>›</button>
+                </div>
+              )}
+            </div>
+          )}
+          {tab === 'almoco' && (
+            <div className="almoco-wrap">
+              <div className="almoco-intro">
+                <div>
+                  <div className="sec-label">Prato da Semana</div>
+                  <h2 className="sec-title">{pratoSemana.nome}</h2>
+                  <p style={{ fontSize: '.95rem', lineHeight: 1.8, color: 'var(--ts)', fontWeight: 300, marginBottom: 20 }}>
+                    {pratoSemana.desc}
+                  </p>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
+                    {pratoSemana.tags.map(t => (
+                      <span key={t} style={{ background: 'rgba(74,124,89,.12)', color: 'var(--vc)', fontSize: '.68rem', padding: '4px 10px', letterSpacing: '.08em', textTransform: 'uppercase' }}>{t}</span>
+                    ))}
+                  </div>
+                  <div style={{ fontFamily: 'Playfair Display, serif', fontSize: '2rem', color: 'var(--tc)', marginBottom: 18 }}>
+                    {fmtBRL(pratoSemana.preco)}
+                  </div>
+                  <p style={{ fontSize: '.82rem', color: 'var(--vc)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="3" /></svg>
+                    Entrega de almoço apenas em Joinville; retirada disponível para outras cidades
+                  </p>
+                  <button className={`add-btn${cart[pratoSemana.id]?.qty > 0 ? ' added' : ''}`} style={{ maxWidth: 240, padding: '12px 18px', marginTop: 22 }} onClick={() => { onAdd(pratoSemana, 1); showToast('✓ ' + pratoSemana.nome + ' adicionado!'); }}>
+                    {cart[pratoSemana.id]?.qty > 0 ? `✓ (${cart[pratoSemana.id].qty}) no carrinho` : 'Pedir prato da semana'}
+                  </button>
+                </div>
+                <img src={pratoSemana.img} alt={pratoSemana.nome} style={{ width: '100%', height: 340, objectFit: 'cover' }} />
+              </div>
+              <div className="pratos-grid">
+                {pratosLista.map(p => (
+                  <PratoCard key={p.id} p={p} cartQty={cart[p.id]?.qty || 0} onAdd={onAdd} />
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      );
+    }
+
+    function CartDrawer({ cart, onClose, onUpdateQty, onRemove, onClear }) {
+      const [step, setStep] = useState('cart'); // 'cart' | 'checkout'
+      const [form, setForm] = useState({ nome: '', telefone: '', tipoEntrega: 'entrega', retiradaHora: '', cep: '', rua: '', numero: '', bairro: '', cidade: 'Joinville', uf: 'SC', complemento: '', pagamento: 'pix', troco: '', obs: '' });
+      const [cepLoading, setCepLoading] = useState(false);
+      const [frete, setFrete] = useState(null);
+      const [freteBairro, setFreteBairro] = useState('');
+
+      const items = Object.values(cart);
+      const hasAlmoco = items.some(({ item }) => isAlmocoItem(item));
+      const isRetirada = form.tipoEntrega === 'retirada';
+      const subtotal = items.reduce((s, i) => s + i.item.preco * i.qty, 0);
+      const total = subtotal + (isRetirada ? 0 : (frete || 0));
+
+      const setF = (k, v) => setForm(f => ({ ...f, [k]: v }));
+      const resetFrete = () => { setFrete(null); setFreteBairro(''); };
+      const setEnderecoF = (k, v) => {
+        resetFrete();
+        setForm(f => ({ ...f, [k]: v }));
+      };
+      const setTipoEntrega = tipo => {
+        resetFrete();
+        setForm(f => ({
+          ...f,
+          tipoEntrega: tipo,
+          cidade: f.cidade || 'Joinville',
+          uf: f.uf || 'SC',
+        }));
+      };
+      const setCidade = cidade => {
+        resetFrete();
+        setForm(f => ({ ...f, cidade, uf: 'SC' }));
+      };
+      const setPagamento = id => setForm(f => ({ ...f, pagamento: id, troco: id === 'dinheiro' ? f.troco : '' }));
+
+      const aplicarFrete = (match, silent = false) => {
+        if (!match) {
+          setFrete(null);
+          setFreteBairro('');
+          if (!silent) showToast('⚠️ Bairro fora da tabela de frete');
+          return false;
+        }
+        setFrete(match.valor);
+        setFreteBairro(match.bairro);
+        if (!silent) showToast('🚚 Frete calculado: ' + fmtBRL(match.valor));
+        return true;
+      };
+
+      const calcularFrete = () => {
+        if (isRetirada) {
+          resetFrete();
+          showToast('Retirada na loja sem frete');
+          return true;
+        }
+        if (hasAlmoco && !isJoinville(form.cidade)) {
+          resetFrete();
+          showToast('⚠️ Almoço com entrega apenas em Joinville');
+          return false;
+        }
+        return aplicarFrete(findFrete(form.bairro, form.cidade));
+      };
+
+      const buscarCep = async cepValue => {
+        const digits = onlyDigits(cepValue || form.cep);
+        if (digits.length !== 8) {
+          showToast('⚠️ Digite um CEP válido');
+          return;
+        }
+        setCepLoading(true);
+        try {
+          const res = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+          const data = await res.json();
+          if (data.erro) {
+            showToast('⚠️ CEP não encontrado');
+            return;
+          }
+          const nextBairro = data.bairro || '';
+          const nextCidade = data.localidade || '';
+          setForm(f => ({
+            ...f,
+            cep: formatCEP(digits),
+            rua: data.logradouro || f.rua,
+            bairro: nextBairro || f.bairro,
+            cidade: nextCidade || f.cidade,
+            uf: data.uf || '',
+          }));
+          if (!(hasAlmoco && !isJoinville(nextCidade))) {
+            aplicarFrete(findFrete(nextBairro, nextCidade), true);
+          }
+          showToast('Endereço preenchido pelo CEP');
+        } catch {
+          showToast('⚠️ Não foi possível buscar o CEP');
+        } finally {
+          setCepLoading(false);
+        }
+      };
+
+      const handleCepChange = e => {
+        const cep = formatCEP(e.target.value);
+        resetFrete();
+        setF('cep', cep);
+        if (onlyDigits(cep).length === 8) buscarCep(cep);
+      };
+
+      const formatTroco = value => {
+        const clean = value.trim();
+        if (!clean) return 'Não precisa de troco';
+        return clean.toLowerCase().startsWith('r$') ? clean : 'R$ ' + clean;
+      };
+
+      const enviarWA = () => {
+        if (!form.nome || onlyDigits(form.telefone).length < 10) {
+          showToast('⚠️ Preencha nome e telefone');
+          return;
+        }
+        let freteFinal = null;
+        if (isRetirada) {
+          if (!form.retiradaHora) {
+            showToast('⚠️ Informe o horário da retirada');
+            return;
+          }
+        } else {
+          if (!form.cep || !form.rua || !form.numero || !form.bairro || !form.cidade) {
+            showToast('⚠️ Preencha CEP, número e endereço');
+            return;
+          }
+          if (hasAlmoco && !isJoinville(form.cidade)) {
+            showToast('⚠️ Almoço com entrega apenas em Joinville');
+            return;
+          }
+          freteFinal = frete !== null ? { bairro: freteBairro || form.bairro || form.cidade, valor: frete } : findFrete(form.bairro, form.cidade);
+          if (!freteFinal) {
+            showToast('⚠️ Calcule o frete antes de finalizar');
+            return;
+          }
+          if (frete === null) aplicarFrete(freteFinal, true);
+        }
+        const totalFinal = subtotal + (freteFinal ? freteFinal.valor : 0);
+        const pagLabel = { pix: 'PIX', cartao: 'Cartão na Entrega', dinheiro: 'Dinheiro na Entrega', voucher: 'Voucher' }[form.pagamento];
+        let msg = `🌿 *PEDIDO — Vida Pura Mercearia*\n`;
+        msg += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+        msg += `👤 *Cliente:* ${form.nome}\n`;
+        msg += `📱 *Telefone:* ${form.telefone}\n`;
+        msg += `🚚 *Tipo:* ${isRetirada ? 'Retirada na loja' : 'Entrega'}\n`;
+        if (isRetirada) {
+          msg += `⏰ *Horário da retirada:* ${form.retiradaHora}\n`;
+          msg += `🏙️ *Cidade:* ${form.cidade || 'Não informada'}\n`;
+          msg += `🏬 *Retirada em:* ${INFO_LOJA.endereco}\n`;
+        } else {
+          msg += `📮 *CEP:* ${form.cep}\n`;
+          msg += `📍 *Endereço:* ${form.rua}, ${form.numero} - ${form.bairro}${form.cidade ? ', ' + form.cidade : ''}${form.uf ? '/' + form.uf : ''}\n`;
+          if (form.complemento) msg += `🏠 *Complemento:* ${form.complemento}\n`;
+        }
+        msg += `💳 *Pagamento:* ${pagLabel}\n`;
+        if (form.pagamento === 'dinheiro') msg += `💵 *Troco para:* ${formatTroco(form.troco)}\n`;
+        if (form.obs) msg += `📝 *Obs:* ${form.obs}\n`;
+        msg += `\n━━━━━━━━━━━━━━━━━━━━━\n`;
+        msg += `📦 *ITENS DO PEDIDO*\n\n`;
+        // Ordenar pelo nome
+        const sorted = [...items].sort((a, b) => a.item.nome.localeCompare(b.item.nome));
+        sorted.forEach(({ item, qty }, idx) => {
+          const sub = item.preco * qty;
+          msg += `${idx + 1}. *${item.nome}* (${item.unidade})\n`;
+          msg += `   ${formatQty(item, qty)} × ${formatUnitPrice(item)} = *${fmtBRL(sub)}*\n\n`;
+        });
+        msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        msg += `🧾 *Subtotal:* ${fmtBRL(subtotal)}\n`;
+        msg += isRetirada ? `🏬 *Retirada:* ${fmtBRL(0)}\n` : `🚚 *Frete (${freteFinal.bairro}):* ${fmtBRL(freteFinal.valor)}\n`;
+        msg += `💰 *TOTAL: ${fmtBRL(totalFinal)}*\n`;
+        if (form.pagamento === 'pix') msg += `\n🔑 Chave PIX: *${PIX_KEY}*\n`;
+        msg += `\nAguardo confirmação do pedido. Obrigado! 😊`;
+        window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+      };
+
+      return (
+        <>
+          <div className="drawer-head">
+            <h3>{step === 'cart' ? 'Seu Pedido' : 'Finalizar Pedido'}</h3>
+            {step === 'checkout'
+              ? <button className="btn-back" onClick={() => setStep('cart')} title="Voltar">
+                <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 12H5" /><path d="m12 19-7-7 7-7" /></svg>
+                Voltar
+              </button>
+              : <button className="close-btn" onClick={onClose} title="Fechar">✕</button>
+            }
+          </div>
+
+          {step === 'cart' && (
+            <>
+              <div className="cart-items">
+                {items.length === 0
+                  ? <div className="cart-empty-msg"><div>🛒</div>Seu carrinho está vazio</div>
+                  : items.map(({ item, qty }) => (
+                    <div key={item.id} className="cart-item">
+                      <img src={item.img} alt={item.nome} />
+                      <div className="ci-info">
+                        <div className="ci-nome">{item.nome}</div>
+                        <div className="ci-preco">{formatUnitPrice(item)} × {formatQty(item, qty)} = {fmtBRL(item.preco * qty)}</div>
+                      </div>
+                      <div className="ci-ctrl">
+                        <button className="ci-btn" onClick={() => onUpdateQty(item.id, -getQtyStep(item))}>−</button>
+                        <span className={`ci-qty${isWeightedHortifruti(item) ? ' weight-val' : ''}`}>{formatQty(item, qty)}</span>
+                        <button className="ci-btn" onClick={() => onUpdateQty(item.id, getQtyStep(item))}>+</button>
+                        <button className="ci-btn rm" onClick={() => onRemove(item.id)}>✕</button>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+              <div className="cart-foot">
+                <div className="cart-total-row">
+                  <span className="cart-total-label">Total estimado</span>
+                  <span className="cart-total-val">{fmtBRL(subtotal)}</span>
+                </div>
+                {items.length > 0 && (
+                  <button className="btn-checkout" onClick={() => setStep('checkout')}>
+                    Continuar → Dados de Entrega
+                  </button>
+                )}
+                <button className="btn-clear" onClick={onClear}>Limpar carrinho</button>
+              </div>
+            </>
+          )}
+
+          {step === 'checkout' && (
+            <>
+              <div className="checkout-form">
+                <div className="form-group">
+                  <label>Nome completo *</label>
+                  <input value={form.nome} onChange={e => setF('nome', e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''))} placeholder="Seu nome" />
+                </div>
+                <div className="form-group">
+                  <label>Telefone *</label>
+                  <input type="tel" inputMode="numeric" maxLength="15" value={form.telefone} onChange={e => setF('telefone', formatPhone(e.target.value))} placeholder="(47) 9 0000-0000" />
+                </div>
+                <div className="form-group">
+                  <label>Entrega ou retirada</label>
+                  <div className="tipo-entrega-opts">
+                    {[
+                      { id: 'entrega', label: 'Entrega', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 17h4V5H2v12h3" /><path d="M14 8h4l4 4v5h-3" /><circle cx="7.5" cy="17.5" r="2.5" /><circle cx="16.5" cy="17.5" r="2.5" /></svg> },
+                      { id: 'retirada', label: 'Retirada', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9h18l-2-5H5Z" /><path d="M5 9v11h14V9" /><path d="M9 13h6" /></svg> },
+                    ].map(opt => (
+                      <button type="button" key={opt.id} className={`tipo-entrega-opt${form.tipoEntrega === opt.id ? ' selected' : ''}`} onClick={() => setTipoEntrega(opt.id)}>
+                        {opt.icon}{opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  {hasAlmoco && !isRetirada && <span className="form-hint">Almoço com entrega apenas em Joinville.</span>}
+                </div>
+
+                {isRetirada ? (
+                  <>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label>Horário da retirada *</label>
+                        <input type="time" value={form.retiradaHora} onChange={e => setF('retiradaHora', e.target.value)} />
+                      </div>
+                      <div className="form-group">
+                        <label>Cidade</label>
+                        <select value={form.cidade} onChange={e => setCidade(e.target.value)}>
+                          {CIDADES_ENTREGA.map(c => <option key={c.cidade} value={c.cidade}>{c.cidade}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                    <span className="form-hint">Retirada na loja sem cobrança de frete.</span>
+                  </>
+                ) : (
+                  <>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label>CEP *</label>
+                        <input inputMode="numeric" maxLength="9" value={form.cep} onChange={handleCepChange} placeholder="89203-000" />
+                        <span className="form-hint">{cepLoading ? 'Buscando endereço...' : 'Rua e bairro são preenchidos pelo CEP.'}</span>
+                      </div>
+                      <div className="form-group">
+                        <label>Número *</label>
+                        <input inputMode="numeric" value={form.numero} onChange={e => setF('numero', onlyDigits(e.target.value).slice(0, 6))} placeholder="Insira o número" />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label>Rua *</label>
+                      <input value={form.rua} onChange={e => setF('rua', e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''))} placeholder="Rua" />
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label>Bairro *</label>
+                        <input list="frete-bairros" value={form.bairro} onChange={e => setEnderecoF('bairro', e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''))} placeholder="Bairro" />
+                      </div>
+                      <div className="form-group">
+                        <label>Cidade *</label>
+                        <select value={form.cidade} onChange={e => setCidade(e.target.value)}>
+                          {CIDADES_ENTREGA.map(c => <option key={c.cidade} value={c.cidade}>{c.cidade}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                    <datalist id="frete-bairros">
+                      {FRETES.map(f => <option key={f.bairro} value={f.bairro} />)}
+                    </datalist>
+                    <div className="form-group">
+                      <label>Complemento</label>
+                      <textarea rows="2" value={form.complemento} onChange={e => setF('complemento', e.target.value)} placeholder="Apto, bloco, referência..." />
+                    </div>
+                    <div className="form-group">
+                      <label>Frete</label>
+                      <button type="button" className="btn-frete" onClick={calcularFrete}>
+                        Calcular o frete
+                      </button>
+                      {frete !== null
+                        ? <div className="frete-info"><span>Entrega para <strong>{freteBairro}</strong></span><strong>{fmtBRL(frete)}</strong></div>
+                        : <span className="form-hint">O frete será somado ao total do pedido.</span>
+                      }
+                    </div>
+                  </>
+                )}
+                <div className="form-group">
+                  <label>Forma de pagamento</label>
+                  <div className="pagamento-opts">
+                    {[
+                      { id: 'pix', label: 'PIX', icon: <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.354 2.646a.9.9 0 0 1 1.292 0l2.122 2.122a.9.9 0 0 1 0 1.278l-2.122 2.12a.9.9 0 0 1-1.292 0L9.232 6.046a.9.9 0 0 1 0-1.278zm0 9.908a.9.9 0 0 1 1.292 0l2.122 2.122a.9.9 0 0 1 0 1.278l-2.122 2.12a.9.9 0 0 1-1.292 0L9.232 15.95a.9.9 0 0 1 0-1.278zM6.046 9.232a.9.9 0 0 1 1.278 0l2.122 2.122a.9.9 0 0 1 0 1.292L7.324 14.77a.9.9 0 0 1-1.278 0l-2.12-2.124a.9.9 0 0 1 0-1.292zm9.908 0a.9.9 0 0 1 1.278 0l2.124 2.122a.9.9 0 0 1 0 1.292l-2.124 2.124a.9.9 0 0 1-1.278 0l-2.122-2.124a.9.9 0 0 1 0-1.292z" /></svg> },
+                      { id: 'cartao', label: 'Cartão', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
+                      { id: 'dinheiro', label: 'Dinheiro', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="6" width="20" height="12" rx="2" /><circle cx="12" cy="12" r="3" /></svg> },
+                      { id: 'voucher', label: 'Voucher', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4Z" /><path d="M13 7v2" /><path d="M13 15v2" /><path d="M13 11v2" /></svg> },
+                    ].map(opt => (
+                      <button type="button" key={opt.id} className={`pag-opt${form.pagamento === opt.id ? ' selected' : ''}`} onClick={() => setPagamento(opt.id)}>
+                        {opt.icon}{opt.label}
+                      </button>
+                    ))}
+                  </div>
+                  {form.pagamento === 'pix' && (
+                    <div className="pix-info">
+                      Envie o comprovante após o pedido.<br />
+                      <span style={{ fontSize: '.72rem', color: 'rgba(245,240,232,.6)' }}>Chave PIX:</span>
+                      <div className="pix-key-row">
+                        <div className="pix-key">{PIX_KEY}</div>
+                        <button type="button" className="btn-copy" onClick={async () => { await copyText(PIX_KEY); showToast('Chave PIX copiada'); }}>
+                          Copiar
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {form.pagamento === 'dinheiro' && (
+                    <div className="form-group" style={{ marginTop: 8 }}>
+                      <label>Valor para troco</label>
+                      <input inputMode="decimal" value={form.troco} onChange={e => setF('troco', e.target.value.replace(/[^\d,.]/g, '').slice(0, 12))} placeholder="Ex.: 100,00" />
+                    </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>Observações</label>
+                  <textarea rows="2" value={form.obs} onChange={e => setF('obs', e.target.value)} placeholder="Alguma restrição alimentar ou pedido especial?" />
+                </div>
+                <div className="order-summary">
+                  <strong className="order-summary-title">Resumo do pedido:</strong>
+                  <table className="summary-table">
+                    <thead>
+                      <tr>
+                        <th className="summary-prod">Produto</th>
+                        <th className="summary-qty">Qtd.</th>
+                        <th className="summary-val">Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[...Object.values(cart)].sort((a, b) => a.item.nome.localeCompare(b.item.nome)).map(({ item, qty }) => (
+                        <tr key={item.id}>
+                          <td className="summary-prod">{item.nome}</td>
+                          <td className="summary-qty">{formatQty(item, qty)}</td>
+                          <td className="summary-val">{fmtBRL(item.preco * qty)}</td>
+                        </tr>
+                      ))}
+                      <tr>
+                        <td className="summary-prod" colSpan="2">Subtotal</td>
+                        <td className="summary-val">{fmtBRL(subtotal)}</td>
+                      </tr>
+                      <tr>
+                        <td className="summary-prod" colSpan="2">{isRetirada ? 'Retirada na loja' : `Frete${freteBairro ? ` (${freteBairro})` : ''}`}</td>
+                        <td className="summary-val">{isRetirada ? fmtBRL(0) : (frete !== null ? fmtBRL(frete) : 'Calcular')}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className="summary-total-row">
+                    <strong>Total</strong><strong>{isRetirada || frete !== null ? fmtBRL(total) : 'Calcule o frete'}</strong>
+                  </div>
+                </div>
+              </div>
+              <div className="cart-foot" style={{ paddingTop: 14 }}>
+                <button className="btn-wa" onClick={enviarWA}>
+                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
+                  Enviar Pedido pelo WhatsApp
+                </button>
+              </div>
+            </>
+          )}
+        </>
+      );
+    }
+
+    /* ─── APP ─── */
+    function App() {
+      const [scrolled, setScrolled] = useState(false);
+      const [cart, setCart] = useState({}); // id -> {item, qty}
+      const [cartOpen, setCartOpen] = useState(false);
+      useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 60);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+      }, []);
+
+      // Scroll reveal
+      useEffect(() => {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 80); obs.unobserve(e.target); }
+          });
+        }, { threshold: .1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        return () => obs.disconnect();
+      }, []);
+
+      // Toast on load
+      useEffect(() => {
+        setTimeout(() => showToast('🌿 Bem-vindo à Vida Pura Mercearia!'), 1200);
+      }, []);
+
+      // Cursor
+      useEffect(() => {
+        const dot = document.getElementById('cur-dot');
+        const ring = document.getElementById('cur-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0, raf;
+        const onMove = e => { mx = e.clientX; my = e.clientY; };
+        document.addEventListener('mousemove', onMove);
+        const loop = () => {
+          dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+          rx += (mx - rx) * .13; ry += (my - ry) * .13;
+          ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+          raf = requestAnimationFrame(loop);
+        };
+        loop();
+        return () => { document.removeEventListener('mousemove', onMove); cancelAnimationFrame(raf); };
+      }, []);
+
+      const addToCart = (item, qty = 1) => {
+        setCart(c => {
+          const prev = c[item.id];
+          const nextQty = normalizeQty(item, (prev?.qty || 0) + normalizeQty(item, qty));
+          return { ...c, [item.id]: { item, qty: nextQty } };
+        });
+      };
+
+      const updateQty = (id, delta) => {
+        setCart(c => {
+          const cur = c[id];
+          if (!cur) return c;
+          const rawQty = cur.qty + delta;
+          if (rawQty <= 0) { const n = { ...c }; delete n[id]; return n; }
+          const nq = normalizeQty(cur.item, rawQty);
+          return { ...c, [id]: { ...cur, qty: nq } };
+        });
+      };
+
+      const removeItem = id => setCart(c => { const n = { ...c }; delete n[id]; return n; });
+      const clearCart = () => { if (confirm('Limpar carrinho?')) { setCart({}); setCartOpen(false); } };
+
+      const cartCount = Object.values(cart).reduce((s, i) => s + (isWeightedHortifruti(i.item) ? 1 : i.qty), 0);
+
+      return (
+        <>
+          {/* NAV */}
+          <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+            <div className="nav-logo">{INFO_LOJA.nome.split(" ").slice(0, 2).join(" ")} <span>{INFO_LOJA.nome.split(" ").slice(2).join(" ")}</span></div>
+            <ul className="nav-links">
+              {[['#hero', 'Início'], ['#sobre', 'Sobre'], ['#loja', 'Loja'], ['#horario', 'Horário'], ['#contato', 'Contato']].map(([href, label]) => (
+                <li key={href}><a href={href}>{label}</a></li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* HERO */}
+          <section className="hero" id="hero">
+            <HeroParticles />
+            <div className="hero-glow" />
+            <div className="hero-body">
+              <div className="hero-text">
+                <p className="eyebrow">{INFO_LOJA.cidade}</p>
+<h1 className="hero-title">Vida Pura<br /><em>Mercearia</em></h1>
+                <p className="hero-slogan">{INFO_LOJA.slogan}</p>
+                <p className="hero-sub">{INFO_LOJA.descricao}</p>
+                <a href="#loja" className="btn-cta">
+                  <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" /></svg>
+                  Ver Produtos
+                </a>
+              </div>
+              <div className="hero-img-wrap">
+                <div className="hero-img-frame">
+                  <img src="images/Copilot_20260424_200742.png" alt="Vida Pura Mercearia" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* STATS */}
+          <StatBar />
+
+          {/* SOBRE */}
+          <section className="sobre" id="sobre">
+            <div className="sobre-imgs reveal">
+              <img className="sobre-img-main" src="images/DSC05491.jpg.jpeg" alt="Loja orgânica" />
+              <img className="sobre-img-accent" src="images/IMG_1072.jpg.jpeg" alt="Produtos naturais" />
+            </div>
+            <div className="reveal">
+              <div className="sec-label">Nossa história</div>
+              <h2 className="sec-title">Um espaço feito com <em>propósito</em></h2>
+              <p className="sobre-text">{INFO_LOJA.sobre1}</p>
+              <p className="sobre-text">{INFO_LOJA.sobre2}</p>
+              <div className="sobre-addr">
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="3" /></svg>
+                {INFO_LOJA.endereco}
+              </div>
+            </div>
+          </section>
+
+          {/* VALORES */}
+          <section className="valores">
+            <div className="reveal" style={{ textAlign: 'center' }}>
+              <div className="sec-label" style={{ justifyContent: 'center' }}>Por que escolher</div>
+              <h2 className="sec-title" style={{ marginBottom: 0 }}>O que nos <em>move</em></h2>
+            </div>
+            <div className="valores-grid">
+              {[
+                ['01', 'Certificação Orgânica', 'A maioria dos nossos produtos passam por rigoroso processo de certificação, garantindo que você receba o que é genuinamente orgânico.'],
+                ['02', 'Agricultores Locais', 'Apoiamos produtores da região, valorizando o trabalho sustentável e fortalecendo a cadeia alimentar consciente.'],
+                ['03', 'Bem-estar & Natureza', 'Acreditamos que a saúde começa no prato. Por isso, cuidamos de cada detalhe para transformar sua alimentação.'],
+              ].map(([n, t, d]) => (
+                <div key={n} className="val-card reveal">
+                  <div className="val-num">{n}</div>
+                  <h3>{t}</h3>
+                  <p>{d}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* SHOP */}
+          <ShopSection cart={cart} onAdd={addToCart} onUpdateCart={updateQty} />
+
+          {/* HORÁRIO */}
+          <section className="horario" id="horario">
+            <div className="reveal">
+              <div className="sec-label light">Quando nos encontrar</div>
+              <h2 className="sec-title light">Horário de <em>Funcionamento</em></h2>
+              <ul className="hor-list">
+                {HORARIOS.map(({ dia, horario, fechado }) => (
+                  <li key={dia} className="hor-item">
+                    <span className="hor-day">{dia}</span>
+                    <span className="hor-time" style={fechado ? { opacity: .3 } : {}}>{horario}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="hor-map reveal">
+              <iframe src="https://www.google.com/maps?q=R.%20Ministro.%20Cal%C3%B3geras%2C%201514%20-%20Atiradores%2C%20Joinville%20-%20SC%2C%2089203-000&output=embed" title="Mapa" allowFullScreen loading="lazy" />
+            </div>
+          </section>
+
+          {/* CONTATO */}
+          <section className="contato" id="contato">
+            <div className="sec-label reveal" style={{ justifyContent: 'center' }}>Fale conosco</div>
+            <h2 className="sec-title reveal" style={{ marginBottom: 40 }}>Entre em <em>contato</em></h2>
+            <div className="contact-btns reveal">
+              <a href={`https://wa.me/${WA}`} className="btn-wa-big" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
+                WhatsApp
+              </a>
+              <a href={INFO_LOJA.instagram} className="btn-ig" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
+                Instagram
+              </a>
+            </div>
+          </section>
+
+          {/* ADDR BAR */}
+          <div className="addr-bar">
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="3" /></svg>
+            {INFO_LOJA.endereco} · {INFO_LOJA.telefone}
+          </div>
+
+          {/* FOOTER */}
+          <footer>
+            <div className="foot-logo">{INFO_LOJA.nome.split(" ")[0]} <span>{INFO_LOJA.nome.split(" ").slice(1).join(" ")}</span></div>
+            <div className="foot-quote">{INFO_LOJA.slogan}</div>
+            <div className="foot-copy">© 2025 {INFO_LOJA.nome}</div>
+          </footer>
+
+          {/* CART FAB */}
+          <button className={`cart-fab${cartCount === 0 ? ' hide' : ''}`} onClick={() => setCartOpen(true)}>
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 01-8 0" /></svg>
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </button>
+
+          {/* CART DRAWER */}
+          <div className={`overlay${cartOpen ? ' open' : ''}`} onClick={() => setCartOpen(false)} />
+          <div className={`drawer${cartOpen ? ' open' : ''}`}>
+            <CartDrawer cart={cart} onClose={() => setCartOpen(false)} onUpdateQty={updateQty} onRemove={removeItem} onClear={clearCart} />
+          </div>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+
+</html>
+
+
