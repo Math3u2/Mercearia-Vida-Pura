@@ -1975,6 +1975,26 @@
       color: var(--vd)
     }
 
+    .frete-meta {
+      display: block;
+      margin-top: 8px;
+      padding: 12px 14px;
+      background: #edf5e9;
+      border: 1px solid var(--fo);
+      border-left: 5px solid var(--vc);
+      border-radius: 8px;
+      color: var(--vd);
+      font-size: .9rem;
+      line-height: 1.45
+    }
+
+    .frete-meta strong {
+      display: block;
+      margin-top: 2px;
+      font-size: 1.2rem;
+      color: var(--tc)
+    }
+
     .order-summary {
       background: var(--ar);
       padding: 14px;
@@ -2410,6 +2430,20 @@
       font-size: .72rem;
       color: rgba(245, 240, 232, .25)
     }
+
+      .foot-credit {
+         font-size: .72rem;
+         color: rgba(245, 240, 232, .6)
+      }
+
+      .foot-credit a {
+         color: var(--do);
+         text-decoration: none
+      }
+
+      .foot-credit a:hover {
+         text-decoration: underline
+      }
 
     /* Animations */
     @keyframes fadeUp {
@@ -10138,7 +10172,9 @@
       const hasAlmoco = items.some(({ item }) => isAlmocoItem(item));
       const isRetirada = form.tipoEntrega === 'retirada';
       const subtotal = items.reduce((s, i) => s + i.item.preco * i.qty, 0);
-      const total = subtotal + (isRetirada ? 0 : (frete || 0));
+      const shippingFree = subtotal >= 200;
+      const desconto = subtotal * 0.1;
+      const total = subtotal - desconto + (isRetirada || shippingFree ? 0 : (frete || 0));
 
       const setF = (k, v) => setForm(f => ({ ...f, [k]: v }));
       const resetFrete = () => { setFrete(null); setFreteBairro(''); };
@@ -10173,9 +10209,9 @@
           if (!silent) showToast('⚠️ Bairro fora da tabela de frete');
           return false;
         }
-        setFrete(match.valor);
+        setFrete(shippingFree ? 0 : match.valor);
         setFreteBairro(match.bairro);
-        if (!silent) showToast('🚚 Frete calculado: ' + fmtBRL(match.valor));
+        if (!silent) showToast(shippingFree ? '🚚 Frete grátis para compras acima de R$ 200,00!' : '🚚 Frete calculado: ' + fmtBRL(match.valor));
         return true;
       };
 
@@ -10277,14 +10313,17 @@
             showToast('⚠️ Informe se precisa de máquina de cartão na entrega');
             return;
           }
-          freteFinal = frete !== null ? { bairro: freteBairro || form.bairro || form.cidade, valor: frete } : findFrete(form.bairro, form.cidade);
+          const destinoFrete = findFrete(form.bairro, form.cidade);
+          freteFinal = destinoFrete
+            ? { bairro: freteBairro || destinoFrete.bairro, valor: shippingFree ? 0 : (frete !== null ? frete : destinoFrete.valor) }
+            : null;
           if (!freteFinal) {
             showToast('⚠️ Calcule o frete antes de finalizar');
             return;
           }
           if (frete === null) aplicarFrete(freteFinal, true);
         }
-        const totalFinal = subtotal + (freteFinal ? freteFinal.valor : 0);
+        const totalFinal = subtotal - desconto + (freteFinal ? freteFinal.valor : 0);
         const pagLabel = { pix: 'PIX', cartao: 'Cartão na Entrega', dinheiro: 'Dinheiro na Entrega', voucher: 'Voucher' }[form.pagamento];
         let msg = `*PEDIDO — Vida Pura Mercearia*\n`;
         msg += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
@@ -10320,7 +10359,8 @@
         });
         msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
         msg += `*Subtotal:* ${fmtBRL(subtotal)}\n`;
-        msg += isRetirada ? `*Retirada:* ${fmtBRL(0)}\n` : `*Frete (${freteFinal.bairro}):* ${fmtBRL(freteFinal.valor)}\n`;
+        msg += `*Desconto de lançamento (10%):* -${fmtBRL(desconto)}\n`;
+        msg += isRetirada ? `*Retirada:* ${fmtBRL(0)}\n` : `*Frete (${freteFinal.bairro}):* ${freteFinal.valor === 0 ? 'Grátis' : fmtBRL(freteFinal.valor)}\n`;
         msg += `*TOTAL: ${fmtBRL(totalFinal)}*\n`;
         msg += `\nAguardo confirmação do pedido. Obrigado!`;
         window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -10477,9 +10517,11 @@
                       <button type="button" className="btn-frete" onClick={calcularFrete}>
                         Calcular o frete
                       </button>
-                      {frete !== null
-                        ? <div className="frete-info"><span>Entrega para <strong>{freteBairro}</strong></span><strong>{fmtBRL(frete)}</strong></div>
-                        : <span className="form-hint">O frete será somado ao total do pedido.</span>
+                      {shippingFree
+                        ? <div className="frete-info"><span>🎉 Frete grátis para compras acima de R$ 200,00{freteBairro ? ` (${freteBairro})` : ''}</span><strong>Grátis</strong></div>
+                        : frete !== null
+                          ? <div className="frete-info"><span>Entrega para <strong>{freteBairro}</strong></span><strong>{fmtBRL(frete)}</strong></div>
+                          : <div className="frete-meta">Para ganhar frete grátis, falta:<strong>{fmtBRL(Math.max(0, 200 - subtotal))}</strong>em produtos para atingir R$ 200,00. O frete será somado ao total do pedido.</div>
                       }
                     </div>
                   </>
@@ -10545,14 +10587,15 @@
                         <td className="summary-prod" colSpan="2">Subtotal</td>
                         <td className="summary-val">{fmtBRL(subtotal)}</td>
                       </tr>
+                      <tr><td className="summary-prod" colSpan="2">Desconto de lançamento (10%)</td><td className="summary-val">-{fmtBRL(desconto)}</td></tr>
                       <tr>
                         <td className="summary-prod" colSpan="2">{isRetirada ? 'Retirada na loja' : `Frete${freteBairro ? ` (${freteBairro})` : ''}`}</td>
-                        <td className="summary-val">{isRetirada ? fmtBRL(0) : (frete !== null ? fmtBRL(frete) : 'Calcular')}</td>
+                        <td className="summary-val">{isRetirada ? fmtBRL(0) : (shippingFree ? 'Grátis' : (frete !== null ? fmtBRL(frete) : 'Calcular'))}</td>
                       </tr>
                     </tbody>
                   </table>
                   <div className="summary-total-row">
-                    <strong>Total</strong><strong>{isRetirada || frete !== null ? fmtBRL(total) : 'Calcule o frete'}</strong>
+                    <strong>Total</strong><strong>{isRetirada || shippingFree || frete !== null ? fmtBRL(total) : 'Calcule o frete'}</strong>
                   </div>
                 </div>
               </div>
@@ -10777,6 +10820,7 @@
           <footer>
             <div className="foot-logo">{INFO_LOJA.nome.split(" ")[0]} <span>{INFO_LOJA.nome.split(" ").slice(1).join(" ")}</span></div>
             <div className="foot-quote">{INFO_LOJA.slogan}</div>
+            <div className="foot-credit">Desenvolvido por <a href="https://www.instagram.com/matheus_nunees/" target="_blank" rel="noopener noreferrer">@matheus_nunees</a></div>
             <div className="foot-copy">© 2025 {INFO_LOJA.nome}</div>
           </footer>
 
