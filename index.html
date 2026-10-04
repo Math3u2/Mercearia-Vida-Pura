@@ -10182,8 +10182,11 @@
       const hasAlmoco = items.some(({ item }) => isAlmocoItem(item));
       const isRetirada = form.tipoEntrega === 'retirada';
       const subtotal = items.reduce((s, i) => s + i.item.preco * i.qty, 0);
-      const shippingFree = subtotal >= 200;
       const desconto = subtotal * 0.1;
+      const subtotalComDesconto = subtotal - desconto;
+      const shippingFree = subtotalComDesconto >= 200;
+      const subtotalMinimoFreteGratis = Math.ceil((200 / 0.9) * 100) / 100;
+      const faltaFreteGratis = Math.max(0, Math.ceil((subtotalMinimoFreteGratis - subtotal) * 100) / 100);
       const total = subtotal - desconto + (isRetirada || shippingFree ? 0 : (frete || 0));
 
       const setF = (k, v) => setForm(f => ({ ...f, [k]: v }));
@@ -10219,9 +10222,9 @@
           if (!silent) showToast('⚠️ Bairro fora da tabela de frete');
           return false;
         }
-        setFrete(shippingFree ? 0 : match.valor);
+        setFrete(match.valor);
         setFreteBairro(match.bairro);
-        if (!silent) showToast(shippingFree ? '🚚 Frete grátis para compras acima de R$ 200,00!' : '🚚 Frete calculado: ' + fmtBRL(match.valor));
+        if (!silent) showToast(shippingFree ? '🚚 Frete grátis em pedidos a partir de R$ 200,00 após o desconto de 10%!' : '🚚 Frete calculado: ' + fmtBRL(match.valor));
         return true;
       };
 
@@ -10528,10 +10531,10 @@
                         Calcular o frete
                       </button>
                       {shippingFree
-                        ? <div className="frete-info"><span>🎉 Frete grátis para compras acima de R$ 200,00{freteBairro ? ` (${freteBairro})` : ''}</span><strong>Grátis</strong></div>
+                        ? <div className="frete-info"><span>🎉 Frete grátis: total dos produtos após 10% de desconto a partir de R$ 200,00{freteBairro ? ` (${freteBairro})` : ''}</span><strong>Grátis</strong></div>
                         : frete !== null
                           ? <div className="frete-info"><span>Entrega para <strong>{freteBairro}</strong></span><strong>{fmtBRL(frete)}</strong></div>
-                          : <div className="frete-meta">Para ganhar frete grátis, falta:<strong>{fmtBRL(Math.max(0, 200 - subtotal))}</strong>em produtos para atingir R$ 200,00. O frete será somado ao total do pedido.</div>
+                          : <div className="frete-meta">Para ganhar frete grátis, o total dos produtos após o desconto de 10% deve chegar a R$ 200,00. Faltam:<strong>{fmtBRL(faltaFreteGratis)}</strong>em produtos antes do desconto. O frete será somado ao total do pedido.</div>
                       }
                     </div>
                   </>
